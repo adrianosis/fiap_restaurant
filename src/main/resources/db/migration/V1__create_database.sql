@@ -26,16 +26,6 @@ create table restaurant
 );
 
 
-create table tables
-(
-    id            serial not null,
-    number        int    not null,
-    capacity      int    not null,
-    restaurant_id int    not null,
-    constraint tables_id primary key (id),
-    foreign key (restaurant_id) references restaurant (id)
-);
-
 create table reviews
 (
     id            serial not null,

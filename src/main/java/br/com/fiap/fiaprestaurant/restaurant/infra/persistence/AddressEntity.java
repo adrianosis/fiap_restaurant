@@ -1,4 +1,4 @@
-package br.com.fiap.fiaprestaurant.restaurant.entity;
+package br.com.fiap.fiaprestaurant.restaurant.infra.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -7,8 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
-public class Address {
+public class AddressEntity {
 
     private String street;
     private String number;
