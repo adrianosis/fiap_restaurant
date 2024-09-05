@@ -1,5 +1,6 @@
 package br.com.fiap.fiaprestaurant.customer.utils;
 
+import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerEntity;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerRepository;
@@ -20,6 +21,11 @@ public class CustomerHelper {
         var customer = createCustomerEntity();
         customer.setId(4);
         return customerRepository.save(customer);
+    }
+    public static Customer saveCustomerEntity(CustomerGateway customerGateway) {
+        var customer = createCustomer();
+        customer.setId(4);
+        return customerGateway.create(customer);
     }
 
 }
