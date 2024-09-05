@@ -14,8 +14,8 @@ import org.springframework.test.context.ActiveProfiles;
 import io.qameta.allure.restassured.AllureRestAssured;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasKey;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -42,9 +42,7 @@ class CustomerControllerIT {
                 .post("/customer")
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
-                .body("$", hasKey("id"))
-                .body("$", hasKey("name"))
-                .body("$", hasKey("email"))
+                .body(matchesJsonSchemaInClasspath("./schemas/CustomerResponseSchema.json"))
                 .body("name", equalTo(customerRequest.getName()))
                 .body("email", equalTo(customerRequest.getEmail()));
     }
@@ -60,7 +58,6 @@ class CustomerControllerIT {
                 .delete("/customer/{id}", id)
                 .then()
                 .statusCode(HttpStatus.NO_CONTENT.value());
-               // .body(equalTo("mensagem removida"));
     }
 
     @Test
@@ -73,8 +70,8 @@ class CustomerControllerIT {
                 .when()
                 .get("/customer/{id}", id)
                 .then()
-                .statusCode(HttpStatus.OK.value());
-        //.body(matchesJsonSchemaInClasspath("./schemas/MensagemResponseSchema.json"));
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("./schemas/CustomerResponseSchema.json"));
     }
 
     @Test
@@ -85,8 +82,8 @@ class CustomerControllerIT {
                 .when()
                 .get("/customer")
                 .then()
-                .statusCode(HttpStatus.OK.value());
-        //.body(matchesJsonSchemaInClasspath("./schemas/MensagemResponseSchema.json"));
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("./schemas/FindAllCustomerResponseSchema.json"));
     }
 
 }
