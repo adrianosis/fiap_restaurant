@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase
 @Transactional
 @ActiveProfiles("test")
-public class CustomerEntityRepositoryIT {
+class CustomerEntityRepositoryIT {
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -31,7 +31,6 @@ public class CustomerEntityRepositoryIT {
         var customer = CustomerHelper.createCustomerEntity();
         //Act
         var savedCustomer = customerRepository.save(customer);
-        var registers = customerRepository.findAll();
         //Assert
         assertThat(savedCustomer)
                 .isInstanceOf(CustomerEntity.class)

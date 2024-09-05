@@ -24,7 +24,7 @@ public class CustomerHelper {
     }
     public static Customer saveCustomerEntity(CustomerGateway customerGateway) {
         var customer = createCustomer();
-        customer.setId(4);
+        customer.setId(4L);
         return customerGateway.create(customer);
     }
 

@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase
 @Transactional
 @ActiveProfiles("test")
-public class CustomerUseCaseIT {
+class CustomerUseCaseIT {
 
     @Autowired
     private CustomerGateway customerGateway;
@@ -80,9 +80,7 @@ public class CustomerUseCaseIT {
         // Act
         var customers = customerUseCase.findAllCustomers();
         // Assert
-        assertThat(customers).hasSize(3);
-        assertThat(customers)
-                .asList()
+        assertThat(customers).hasSize(3)
                 .allSatisfy(customer -> {
                     assertThat(customer).isNotNull();
                     assertThat(customer).isInstanceOf(Customer.class);

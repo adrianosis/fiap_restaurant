@@ -7,7 +7,6 @@ import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class CustomerRepositoryJpa implements CustomerGateway {
 
@@ -30,7 +29,7 @@ public class CustomerRepositoryJpa implements CustomerGateway {
     @Override
     public Optional<Customer> findCustomerById(Long id) {
         Optional<CustomerEntity> optionalCustomer =  this.customerRepository.findById(id);
-        return optionalCustomer.map(customerEntity -> mapper.toDomain(customerEntity));
+        return optionalCustomer.map(mapper::toDomain);
     }
 
     @Override
@@ -42,6 +41,6 @@ public class CustomerRepositoryJpa implements CustomerGateway {
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll().stream()
                 .map(mapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

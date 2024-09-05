@@ -2,16 +2,12 @@ package br.com.fiap.fiaprestaurant.customer.infra.controller;
 
 import br.com.fiap.fiaprestaurant.customer.application.usecases.CustomerUseCase;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
-import io.swagger.v3.oas.annotations.Operation;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/customer")
@@ -44,7 +40,7 @@ public class CustomerController {
     @GetMapping()
     public ResponseEntity<List<CustomerResponseDto>> findAll() {
         List<CustomerResponseDto> response = createCustomer.findAllCustomers()
-                .stream().map( c -> new CustomerResponseDto(c.getId(), c.getName(), c.getEmail())).collect(Collectors.toList());
+                .stream().map( c -> new CustomerResponseDto(c.getId(), c.getName(), c.getEmail())).toList();
         return ResponseEntity.status(200).body(response);
     }
 

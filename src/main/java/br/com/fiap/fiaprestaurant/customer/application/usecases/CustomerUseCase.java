@@ -4,7 +4,6 @@ import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CustomerUseCase {
 

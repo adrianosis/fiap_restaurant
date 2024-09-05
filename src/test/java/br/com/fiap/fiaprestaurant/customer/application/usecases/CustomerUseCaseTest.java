@@ -2,7 +2,6 @@ package br.com.fiap.fiaprestaurant.customer.application.usecases;
 
 import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
-import br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -12,7 +11,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper.createCustomer;
-import static br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper.createCustomerEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -33,12 +31,16 @@ class CustomerUseCaseTest {
 
     @Test
     void shouldCreateCustomer() {
+        // Arrange
         var customer = createCustomer();
+        customer.setId(1L);
         when(customerGateway.create(any(Customer.class)))
                 .thenAnswer(i -> i.getArgument(0));
 
+        // Act
         var savedCustomer = customerUseCase.create(customer);
 
+        // Assert
         assertThat(savedCustomer)
                 .isInstanceOf(Customer.class)
                 .isNotNull();
@@ -53,13 +55,16 @@ class CustomerUseCaseTest {
 
     @Test
     void shouldFindCustomerById() {
+        // Arrange
         var id = 1L;
         var customer = createCustomer();
         when(customerGateway.findCustomerById(any(Long.class)))
                 .thenReturn(Optional.of(customer));
 
+        // Act
         var customerFound = customerUseCase.findCustomerById(id);
 
+        // Assert
         verify(customerGateway, times(1))
                 .findCustomerById(id);
         assertThat(customerFound)
@@ -75,6 +80,7 @@ class CustomerUseCaseTest {
 
     @Test
     void shouldDeleteCustomerById() {
+        // Arrange
         var id = 1L;
         var customer = createCustomer();
         customer.setId(id);
@@ -83,8 +89,10 @@ class CustomerUseCaseTest {
         doNothing()
                 .when(customerGateway).deleteCustomerById(id);
 
+        // Act
         customerUseCase.deleteCustomerById(id);
 
+        // Assert
         verify(customerGateway, times(1)).findCustomerById(any(Long.class));
         verify(customerGateway, times(1)).deleteCustomerById(any(Long.class));
     }
