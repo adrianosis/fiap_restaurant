@@ -5,6 +5,7 @@ import br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,8 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@AutoConfigureTestDatabase
+
 class CustomerControllerIT {
 
     @LocalServerPort
@@ -48,7 +50,6 @@ class CustomerControllerIT {
     }
 
     @Test
-    @DirtiesContext
     void shouldDeleteCustomerById() {
         var id = 1;
         given()
