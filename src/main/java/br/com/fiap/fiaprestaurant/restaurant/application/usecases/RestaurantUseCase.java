@@ -3,11 +3,11 @@ package br.com.fiap.fiaprestaurant.restaurant.application.usecases;
 import br.com.fiap.fiaprestaurant.restaurant.application.gateways.RestaurantGateway;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 
-public class CreateRestaurantUseCase {
+public class RestaurantUseCase {
 
     private final RestaurantGateway restaurantGateway;
 
-    public CreateRestaurantUseCase(RestaurantGateway restaurantGateway) {
+    public RestaurantUseCase(RestaurantGateway restaurantGateway) {
         this.restaurantGateway = restaurantGateway;
     }
 

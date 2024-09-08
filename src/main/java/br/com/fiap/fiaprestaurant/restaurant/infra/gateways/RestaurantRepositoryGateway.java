@@ -24,4 +24,5 @@ public class RestaurantRepositoryGateway implements RestaurantGateway {
 
         return restaurantEntityMapper.toDomain(entity);
     }
+
 }

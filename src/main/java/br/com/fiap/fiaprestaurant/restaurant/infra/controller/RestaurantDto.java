@@ -41,10 +41,4 @@ public class RestaurantDto {
         this.postalCode = restaurant.getAddress().getPostalCode();
     }
 
-    public Restaurant toDomain() {
-        return new Restaurant(id, name, kitchenType, capacity,openingTime, closingTime,
-                new Address(street, number, complement, district, city, state, postalCode)
-        );
-    }
-
 }

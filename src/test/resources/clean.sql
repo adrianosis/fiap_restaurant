@@ -1,1 +1,2 @@
-DELETE FROM CUSTOMER;
+delete from customer;
+delete from restaurant;
