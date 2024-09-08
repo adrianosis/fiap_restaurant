@@ -2,6 +2,8 @@ package br.com.fiap.fiaprestaurant.customer.application.usecases;
 
 import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -30,6 +32,7 @@ class CustomerUseCaseTest {
     }
 
     @Test
+    @Severity(SeverityLevel.BLOCKER)
     void shouldCreateCustomer() {
         // Arrange
         var customer = createCustomer();
@@ -54,6 +57,7 @@ class CustomerUseCaseTest {
     }
 
     @Test
+    @Severity(SeverityLevel.MINOR)
     void shouldFindCustomerById() {
         // Arrange
         var id = 1L;

@@ -2,10 +2,15 @@ package br.com.fiap.fiaprestaurant.customer.utils;
 
 import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
+import br.com.fiap.fiaprestaurant.customer.infra.controller.CustomerRequestDto;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerEntity;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerRepository;
 
 public class CustomerHelper {
+
+    public static CustomerRequestDto createCustomerDTORequest(){
+        return  new CustomerRequestDto ("Claudia", "claudia@gmail.com");
+    }
 
     public static CustomerEntity createCustomerEntity(){
         return  CustomerEntity.builder()

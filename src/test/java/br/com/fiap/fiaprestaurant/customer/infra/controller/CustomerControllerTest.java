@@ -20,7 +20,6 @@ import java.util.Arrays;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class CustomerControllerTest {
@@ -104,7 +103,7 @@ class CustomerControllerTest {
 
         mockMvc.perform(get("/customer")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
+                //.andDo(print())
                 .andExpect(jsonPath("$[0].id").value(customer.getId()))
                 .andExpect(jsonPath("$[0].name").value(customer.getName()))
                 .andExpect(jsonPath("$[0].email").value(customer.getEmail()))

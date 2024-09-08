@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
-
 class CustomerControllerIT {
 
     @LocalServerPort
@@ -34,7 +33,7 @@ class CustomerControllerIT {
 
     @Test
     void shouldCreateCustomer() {
-        var customerRequest = CustomerHelper.createCustomerEntity();
+        var customerRequest = CustomerHelper.createCustomerDTORequest();
 
         given()
                 .filter(new AllureRestAssured())
@@ -45,8 +44,8 @@ class CustomerControllerIT {
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .body(matchesJsonSchemaInClasspath("./schemas/CustomerResponseSchema.json"))
-                .body("name", equalTo(customerRequest.getName()))
-                .body("email", equalTo(customerRequest.getEmail()));
+                .body("name", equalTo(customerRequest.name()))
+                .body("email", equalTo(customerRequest.email()));
     }
 
     @Test
