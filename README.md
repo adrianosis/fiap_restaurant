@@ -23,6 +23,12 @@ mvn test -P integration-test
 mvn test -P system-test
 ```
 
+- To run Performance Test - with Gatling:
+
+```sh
+mvn gatling:test -P performance-test
+```
+
 ## Running Reports
 
 
