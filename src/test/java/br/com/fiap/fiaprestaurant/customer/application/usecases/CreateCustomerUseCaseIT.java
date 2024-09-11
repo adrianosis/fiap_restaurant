@@ -15,21 +15,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
+@ActiveProfiles("test")
 @Transactional
-class CustomerUseCaseIT {
+class CreateCustomerUseCaseIT {
 
     @Autowired
     private CustomerGateway customerGateway;
 
     @Autowired
-    private CustomerUseCase customerUseCase;
+    private CreateCustomerUseCase createCustomerUseCase;
 
     @Test
     void shouldCreateCustomer() {
         // Arrange
         var customer = CustomerHelper.createCustomer();
         // Act
-        var savedCustomer = customerUseCase.create(customer);
+        var savedCustomer = createCustomerUseCase.create(customer);
         // Assert
         assertThat(savedCustomer)
                 .isNotNull()
@@ -47,43 +48,5 @@ class CustomerUseCaseIT {
     }
 
 
-    @Test
-    void shouldFindCustomerById() {
-        // Arrange
-        var customer = CustomerHelper.saveCustomerEntity(customerGateway);
-        // Act
-        var foundCustomer = customerUseCase.findCustomerById(customer.getId());
-        // Assert
-        assertThat(foundCustomer)
-                .isNotNull()
-                .isInstanceOf(Customer.class);
-        assertThat(foundCustomer.getId())
-                .isEqualTo(customer.getId());
-        assertThat(foundCustomer.getName())
-                .isEqualTo(customer.getName());
-        assertThat(foundCustomer.getEmail())
-                .isEqualTo(customer.getEmail());
-    }
-
-
-    @Test
-    void shouldDeleteCustomerById() {
-        // Arrange
-        var customer = CustomerHelper.saveCustomerEntity(customerGateway);
-        // Act
-        customerUseCase.deleteCustomerById(customer.getId());
-    }
-
-    @Test
-    void shouldFindAllCustomers() {
-        // Act
-        var customers = customerUseCase.findAllCustomers();
-        // Assert
-        assertThat(customers).hasSize(3)
-                .allSatisfy(customer -> {
-                    assertThat(customer).isNotNull();
-                    assertThat(customer).isInstanceOf(Customer.class);
-                });
-    }
 
 }

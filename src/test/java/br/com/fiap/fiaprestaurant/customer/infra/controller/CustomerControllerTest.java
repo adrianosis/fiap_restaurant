@@ -1,6 +1,9 @@
 package br.com.fiap.fiaprestaurant.customer.infra.controller;
 
-import br.com.fiap.fiaprestaurant.customer.application.usecases.CustomerUseCase;
+import br.com.fiap.fiaprestaurant.customer.application.usecases.CreateCustomerUseCase;
+import br.com.fiap.fiaprestaurant.customer.application.usecases.DeleteCustomerByIdUseCase;
+import br.com.fiap.fiaprestaurant.customer.application.usecases.FindAllCustomersUseCase;
+import br.com.fiap.fiaprestaurant.customer.application.usecases.FindCustomerByIdUseCase;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.customer.infra.gateways.CustomerEntityMapper;
 import br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper;
@@ -26,7 +29,13 @@ class CustomerControllerTest {
 
     private MockMvc mockMvc;
     @Mock
-    private CustomerUseCase customerUseCase;
+    private CreateCustomerUseCase createCustomerUseCase;
+    @Mock
+    private FindCustomerByIdUseCase findCustomerByIdUseCase;
+    @Mock
+    private FindAllCustomersUseCase findAllCustomersUseCase;
+    @Mock
+    private DeleteCustomerByIdUseCase deleteCustomerByIdUseCase;
 
     CustomerEntityMapper mapper = new CustomerEntityMapper();
 
@@ -35,7 +44,8 @@ class CustomerControllerTest {
     @BeforeEach
     void setUp(){
         openMocks = MockitoAnnotations.openMocks(this);
-        CustomerController customerController = new CustomerController(customerUseCase);
+        CustomerController customerController = new CustomerController(createCustomerUseCase,
+                findCustomerByIdUseCase, findAllCustomersUseCase, deleteCustomerByIdUseCase);
         mockMvc = MockMvcBuilders.standaloneSetup(customerController)
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .addFilter((request, response, chain) -> {
@@ -54,14 +64,14 @@ class CustomerControllerTest {
     @Test
     void shouldCreateCustomer() throws Exception {
         var customerRequest = CustomerHelper.createCustomerEntity();
-        when(customerUseCase.create(any(Customer.class)))
+        when(createCustomerUseCase.create(any(Customer.class)))
                 .thenAnswer(i -> i.getArgument(0));
 
         mockMvc.perform(post("/customer")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customerRequest)))
                 .andExpect(status().isCreated());
-        verify(customerUseCase, times(1)).create(any(Customer.class));
+        verify(createCustomerUseCase, times(1)).create(any(Customer.class));
     }
 
     @Test
@@ -70,7 +80,7 @@ class CustomerControllerTest {
         var customer = CustomerHelper.createCustomerEntity();
         customer.setId(id);
 
-        when(customerUseCase.findCustomerById(id)).thenReturn(mapper.toDomain(customer));
+        when(findCustomerByIdUseCase.findCustomerById(id)).thenReturn(mapper.toDomain(customer));
 
         mockMvc.perform(get("/customer/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -80,17 +90,17 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$.name").value(customer.getName()))
                 .andExpect(jsonPath("$.email").value(customer.getEmail()));
 
-        verify(customerUseCase, times(1)).findCustomerById(any(Long.class));
+        verify(findCustomerByIdUseCase, times(1)).findCustomerById(any(Long.class));
     }
 
     @Test
     void shouldDeleteCustomerById() throws Exception {
         var id = 1L;
-        doNothing().when(customerUseCase).deleteCustomerById(any(Long.class));
+        doNothing().when(deleteCustomerByIdUseCase).deleteCustomerById(any(Long.class));
 
         mockMvc.perform(delete("/customer/{id}", id))
                 .andExpect(status().isNoContent());
-        verify(customerUseCase, times(1))
+        verify(deleteCustomerByIdUseCase, times(1))
                 .deleteCustomerById(any(Long.class));
     }
 
@@ -99,7 +109,7 @@ class CustomerControllerTest {
         var customer = CustomerHelper.createCustomerEntity();
         customer.setId(1L);
         var customers = Arrays.asList(mapper.toDomain(customer));
-        when(customerUseCase.findAllCustomers()).thenReturn(customers);
+        when(findAllCustomersUseCase.findAllCustomers()).thenReturn(customers);
 
         mockMvc.perform(get("/customer")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -109,7 +119,7 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$[0].email").value(customer.getEmail()))
                 .andExpect(status().isOk());
 
-        verify(customerUseCase, times(1))
+        verify(findAllCustomersUseCase, times(1))
                 .findAllCustomers();
     }
 

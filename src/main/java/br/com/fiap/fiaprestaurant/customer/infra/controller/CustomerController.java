@@ -1,6 +1,9 @@
 package br.com.fiap.fiaprestaurant.customer.infra.controller;
 
-import br.com.fiap.fiaprestaurant.customer.application.usecases.CustomerUseCase;
+import br.com.fiap.fiaprestaurant.customer.application.usecases.CreateCustomerUseCase;
+import br.com.fiap.fiaprestaurant.customer.application.usecases.DeleteCustomerByIdUseCase;
+import br.com.fiap.fiaprestaurant.customer.application.usecases.FindAllCustomersUseCase;
+import br.com.fiap.fiaprestaurant.customer.application.usecases.FindCustomerByIdUseCase;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +17,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerUseCase createCustomer;
+    private final CreateCustomerUseCase createCustomer;
+    private final FindCustomerByIdUseCase findCustomerByIdUseCase;
+    private final FindAllCustomersUseCase findAllCustomersUseCase;
+    private final DeleteCustomerByIdUseCase deleteCustomerByIdUseCase;
 
     @PostMapping
     public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerRequestDto dto){
@@ -26,20 +32,20 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponseDto> findCustomerById(@PathVariable Long id) {
-        Customer foundUser = createCustomer.findCustomerById(id);
+        Customer foundUser = findCustomerByIdUseCase.findCustomerById(id);
         CustomerResponseDto crdto = new CustomerResponseDto(foundUser.getId(), foundUser.getName(), foundUser.getEmail());
         return new ResponseEntity<>(crdto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
-        createCustomer.deleteCustomerById(id);
+        deleteCustomerByIdUseCase.deleteCustomerById(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping()
     public ResponseEntity<List<CustomerResponseDto>> findAll() {
-        List<CustomerResponseDto> response = createCustomer.findAllCustomers()
+        List<CustomerResponseDto> response = findAllCustomersUseCase.findAllCustomers()
                 .stream().map( c -> new CustomerResponseDto(c.getId(), c.getName(), c.getEmail())).toList();
         return ResponseEntity.status(200).body(response);
     }
