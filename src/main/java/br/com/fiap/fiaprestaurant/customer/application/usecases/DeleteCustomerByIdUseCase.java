@@ -4,8 +4,6 @@ import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 public class DeleteCustomerByIdUseCase {
 

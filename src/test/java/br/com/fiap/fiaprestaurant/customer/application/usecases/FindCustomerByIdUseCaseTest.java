@@ -1,7 +1,6 @@
 package br.com.fiap.fiaprestaurant.customer.application.usecases;
 
 import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
-import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import static br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper.createCustomer;
