@@ -36,7 +36,7 @@ class FindAllCustomersUseCaseTest {
         var listCustomers = Arrays.asList(customer1, customer2);
         when(customerGateway.findAllCustomers()).thenReturn(listCustomers);
         // Act
-        var foundCustomers = findAllCustomersUseCase.findAllCustomers();
+        var foundCustomers = findAllCustomersUseCase.execute();
         // Assert
         assertThat(foundCustomers)
                 .hasSize(2)

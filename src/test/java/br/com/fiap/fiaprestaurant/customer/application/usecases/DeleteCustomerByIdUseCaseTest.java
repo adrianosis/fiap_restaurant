@@ -37,7 +37,7 @@ class DeleteCustomerByIdUseCaseTest {
                 .when(customerGateway).deleteCustomerById(id);
 
         // Act
-        deleteCustomerByIdUseCase.deleteCustomerById(id);
+        deleteCustomerByIdUseCase.execute(id);
 
         // Assert
         verify(customerGateway, times(1)).findCustomerById(any(Long.class));

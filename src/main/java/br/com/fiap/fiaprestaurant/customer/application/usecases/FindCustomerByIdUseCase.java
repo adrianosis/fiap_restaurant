@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class FindCustomerByIdUseCase {
 
     private final CustomerGateway customerGateway;
-    public Customer findCustomerById(Long id){
+    public Customer execute(Long id){
         return  customerGateway.findCustomerById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
     }

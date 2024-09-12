@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class DeleteCustomerByIdUseCase {
 
     private final CustomerGateway customerGateway;
-    public void deleteCustomerById(Long id){
+    public void execute(Long id){
         Customer customer = customerGateway.findCustomerById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
         customerGateway.deleteCustomerById(customer.getId());

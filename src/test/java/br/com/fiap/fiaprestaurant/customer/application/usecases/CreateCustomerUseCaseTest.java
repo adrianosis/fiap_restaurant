@@ -38,7 +38,7 @@ class CreateCustomerUseCaseTest {
                 .thenAnswer(i -> i.getArgument(0));
 
         // Act
-        var savedCustomer = createCustomerUseCase.create(customer);
+        var savedCustomer = createCustomerUseCase.execute(customer);
 
         // Assert
         assertThat(savedCustomer)

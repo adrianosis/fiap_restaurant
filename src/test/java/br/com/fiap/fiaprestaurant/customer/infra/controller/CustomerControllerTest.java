@@ -64,14 +64,14 @@ class CustomerControllerTest {
     @Test
     void shouldCreateCustomer() throws Exception {
         var customerRequest = CustomerHelper.createCustomerEntity();
-        when(createCustomerUseCase.create(any(Customer.class)))
+        when(createCustomerUseCase.execute(any(Customer.class)))
                 .thenAnswer(i -> i.getArgument(0));
 
         mockMvc.perform(post("/customer")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customerRequest)))
                 .andExpect(status().isCreated());
-        verify(createCustomerUseCase, times(1)).create(any(Customer.class));
+        verify(createCustomerUseCase, times(1)).execute(any(Customer.class));
     }
 
     @Test
@@ -80,7 +80,7 @@ class CustomerControllerTest {
         var customer = CustomerHelper.createCustomerEntity();
         customer.setId(id);
 
-        when(findCustomerByIdUseCase.findCustomerById(id)).thenReturn(mapper.toDomain(customer));
+        when(findCustomerByIdUseCase.execute(id)).thenReturn(mapper.toDomain(customer));
 
         mockMvc.perform(get("/customer/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -90,18 +90,18 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$.name").value(customer.getName()))
                 .andExpect(jsonPath("$.email").value(customer.getEmail()));
 
-        verify(findCustomerByIdUseCase, times(1)).findCustomerById(any(Long.class));
+        verify(findCustomerByIdUseCase, times(1)).execute(any(Long.class));
     }
 
     @Test
     void shouldDeleteCustomerById() throws Exception {
         var id = 1L;
-        doNothing().when(deleteCustomerByIdUseCase).deleteCustomerById(any(Long.class));
+        doNothing().when(deleteCustomerByIdUseCase).execute(any(Long.class));
 
         mockMvc.perform(delete("/customer/{id}", id))
                 .andExpect(status().isNoContent());
         verify(deleteCustomerByIdUseCase, times(1))
-                .deleteCustomerById(any(Long.class));
+                .execute(any(Long.class));
     }
 
     @Test
@@ -109,7 +109,7 @@ class CustomerControllerTest {
         var customer = CustomerHelper.createCustomerEntity();
         customer.setId(1L);
         var customers = Arrays.asList(mapper.toDomain(customer));
-        when(findAllCustomersUseCase.findAllCustomers()).thenReturn(customers);
+        when(findAllCustomersUseCase.execute()).thenReturn(customers);
 
         mockMvc.perform(get("/customer")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -120,7 +120,7 @@ class CustomerControllerTest {
                 .andExpect(status().isOk());
 
         verify(findAllCustomersUseCase, times(1))
-                .findAllCustomers();
+                .execute();
     }
 
 

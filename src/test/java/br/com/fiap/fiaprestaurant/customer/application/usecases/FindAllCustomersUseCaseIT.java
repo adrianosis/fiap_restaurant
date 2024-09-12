@@ -26,7 +26,7 @@ class FindAllCustomersUseCaseIT {
     @Test
     void shouldFindAllCustomers() {
         // Act
-        var customers = findAllCustomersUseCase.findAllCustomers();
+        var customers = findAllCustomersUseCase.execute();
         // Assert
         assertThat(customers).hasSize(3)
                 .allSatisfy(customer -> {

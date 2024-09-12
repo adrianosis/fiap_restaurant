@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class CreateCustomerUseCase {
 
     private final CustomerGateway customerGateway;
-    public Customer create(Customer customer) {
+    public Customer execute(Customer customer) {
         return customerGateway.create(customer);
     }
 

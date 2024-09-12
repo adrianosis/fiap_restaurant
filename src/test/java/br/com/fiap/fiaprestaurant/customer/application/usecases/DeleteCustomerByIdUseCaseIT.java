@@ -26,6 +26,6 @@ class DeleteCustomerByIdUseCaseIT {
         // Arrange
         var customer = CustomerHelper.saveCustomerEntity(customerGateway);
         // Act
-        deleteCustomerByIdUseCase.deleteCustomerById(customer.getId());
+        deleteCustomerByIdUseCase.execute(customer.getId());
     }
 }

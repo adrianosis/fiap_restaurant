@@ -29,7 +29,7 @@ class FindCustomerByIdUseCaseIT {
         // Arrange
         var customer = CustomerHelper.saveCustomerEntity(customerGateway);
         // Act
-        var foundCustomer = findCustomerByIdUseCase.findCustomerById(customer.getId());
+        var foundCustomer = findCustomerByIdUseCase.execute(customer.getId());
         // Assert
         assertThat(foundCustomer)
                 .isNotNull()

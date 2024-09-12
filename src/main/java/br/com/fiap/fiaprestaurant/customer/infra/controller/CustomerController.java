@@ -24,7 +24,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerRequestDto dto){
-        Customer savedCustomer = createCustomer.create(new Customer(dto.name(), dto.email()));
+        Customer savedCustomer = createCustomer.execute(new Customer(dto.name(), dto.email()));
         CustomerResponseDto crdto = new CustomerResponseDto(savedCustomer.getId(), savedCustomer.getName(), savedCustomer.getEmail());
         return new ResponseEntity<>(crdto, HttpStatus.CREATED);
     }
@@ -32,20 +32,20 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponseDto> findCustomerById(@PathVariable Long id) {
-        Customer foundUser = findCustomerByIdUseCase.findCustomerById(id);
+        Customer foundUser = findCustomerByIdUseCase.execute(id);
         CustomerResponseDto crdto = new CustomerResponseDto(foundUser.getId(), foundUser.getName(), foundUser.getEmail());
         return new ResponseEntity<>(crdto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
-        deleteCustomerByIdUseCase.deleteCustomerById(id);
+        deleteCustomerByIdUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping()
     public ResponseEntity<List<CustomerResponseDto>> findAll() {
-        List<CustomerResponseDto> response = findAllCustomersUseCase.findAllCustomers()
+        List<CustomerResponseDto> response = findAllCustomersUseCase.execute()
                 .stream().map( c -> new CustomerResponseDto(c.getId(), c.getName(), c.getEmail())).toList();
         return ResponseEntity.status(200).body(response);
     }

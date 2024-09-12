@@ -38,7 +38,7 @@ class FindCustomerByIdUseCaseTest {
                 .thenReturn(Optional.of(customer));
 
         // Act
-        var customerFound = findCustomerByIdUseCase.findCustomerById(id);
+        var customerFound = findCustomerByIdUseCase.execute(id);
 
         // Assert
         verify(customerGateway, times(1))

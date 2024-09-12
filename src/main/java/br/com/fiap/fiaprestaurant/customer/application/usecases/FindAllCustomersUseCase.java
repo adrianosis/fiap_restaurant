@@ -10,7 +10,7 @@ import java.util.List;
 public class FindAllCustomersUseCase {
 
     private final CustomerGateway customerGateway;
-    public List<Customer> findAllCustomers(){
+    public List<Customer> execute(){
         return customerGateway.findAllCustomers();
     }
 

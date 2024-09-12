@@ -30,7 +30,7 @@ class CreateCustomerUseCaseIT {
         // Arrange
         var customer = CustomerHelper.createCustomer();
         // Act
-        var savedCustomer = createCustomerUseCase.create(customer);
+        var savedCustomer = createCustomerUseCase.execute(customer);
         // Assert
         assertThat(savedCustomer)
                 .isNotNull()
