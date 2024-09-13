@@ -5,7 +5,6 @@ import br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase
+@ActiveProfiles("test")
 class CustomerControllerIT {
 
     @LocalServerPort

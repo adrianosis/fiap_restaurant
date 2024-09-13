@@ -2,9 +2,13 @@ package br.com.fiap.fiaprestaurant.reservation.domain.entity;
 
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
+@AllArgsConstructor
 public class Reservation {
 
     private long id;
@@ -24,20 +28,11 @@ public class Reservation {
         this.customer = customer;
     }
 
-    public Reservation(long id, LocalDateTime reservationDateTime, int guests, LocalDateTime startService,
-                       LocalDateTime endService, String tableTag, ReservationStatus status, Restaurant restaurant, Customer customer) {
-        this.id = id;
-        this.reservationDateTime = reservationDateTime;
-        this.guests = guests;
-        this.startService = startService;
-        this.endService = endService;
-        this.tableTag = tableTag;
-        this.status = status;
-        this.restaurant = restaurant;
-        this.customer = customer;
-    }
+    public void confirmReserve(long reservationCount) throws Exception {
+        if ((reservationCount + this.guests) > restaurant.getCapacity()){
+            throw new Exception("Exceeded capacity");
+        }
 
-    public void confirmReserve() {
         status = ReservationStatus.RESERVED;
     }
 
@@ -54,39 +49,4 @@ public class Reservation {
         }
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public LocalDateTime getReservationDateTime() {
-        return reservationDateTime;
-    }
-
-    public int getGuests() {
-        return guests;
-    }
-
-    public LocalDateTime getStartService() {
-        return startService;
-    }
-
-    public LocalDateTime getEndService() {
-        return endService;
-    }
-
-    public String getTableTag() {
-        return tableTag;
-    }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
 }

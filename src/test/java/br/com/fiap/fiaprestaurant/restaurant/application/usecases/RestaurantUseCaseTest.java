@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 public class RestaurantUseCaseTest {
 
-    private RestaurantUseCase restaurantUseCase;
+    private CreateRestaurantUseCase restaurantUseCase;
 
     @Mock
     private RestaurantGateway restaurantGateway;
@@ -24,7 +24,7 @@ public class RestaurantUseCaseTest {
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
-        restaurantUseCase = new RestaurantUseCase(restaurantGateway);
+        restaurantUseCase = new CreateRestaurantUseCase(restaurantGateway);
     }
 
     @AfterEach

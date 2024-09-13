@@ -12,11 +12,8 @@ public class ManagerReservationUseCase {
         this.reservationGateway = reservationGateway;
     }
 
-    public Reservation changeStatus(long reservationId, ReservationStatus status, String tableTag) {
-        Reservation reservation = reservationGateway.findById(reservationId);
-        reservation.changeStatus(status, tableTag);
+    public void execute(){
 
-        return reservation;
     }
 
 }

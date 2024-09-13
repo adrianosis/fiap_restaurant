@@ -2,16 +2,14 @@ package br.com.fiap.fiaprestaurant.restaurant.application.usecases;
 
 import br.com.fiap.fiaprestaurant.restaurant.application.gateways.RestaurantGateway;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
+import lombok.RequiredArgsConstructor;
 
-public class RestaurantUseCase {
+@RequiredArgsConstructor
+public class CreateRestaurantUseCase {
 
     private final RestaurantGateway restaurantGateway;
 
-    public RestaurantUseCase(RestaurantGateway restaurantGateway) {
-        this.restaurantGateway = restaurantGateway;
-    }
-
-    public Restaurant create(Restaurant restaurant) {
+    public Restaurant execute(Restaurant restaurant) {
         return restaurantGateway.create(restaurant);
     }
 

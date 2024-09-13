@@ -1,7 +1,5 @@
 package br.com.fiap.fiaprestaurant.restaurant.application.usecases;
 
-import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
-import br.com.fiap.fiaprestaurant.restaurant.application.gateways.RestaurantGateway;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RestaurantUseCaseIT {
 
     @Autowired
-    private RestaurantUseCase restaurantUseCase;
+    private CreateRestaurantUseCase restaurantUseCase;
 
     @Test
     void shouldCreateRestaurant() {

@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
+@ActiveProfiles("test")
 @Transactional
 class CustomerUseCaseIT {
 

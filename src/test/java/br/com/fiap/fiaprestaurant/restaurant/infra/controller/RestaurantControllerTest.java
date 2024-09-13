@@ -1,6 +1,6 @@
 package br.com.fiap.fiaprestaurant.restaurant.infra.controller;
 
-import br.com.fiap.fiaprestaurant.restaurant.application.usecases.RestaurantUseCase;
+import br.com.fiap.fiaprestaurant.restaurant.application.usecases.CreateRestaurantUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 import br.com.fiap.fiaprestaurant.shared.exception.GlobalExceptionHandler;
 import org.junit.jupiter.api.AfterEach;
@@ -24,7 +24,7 @@ public class RestaurantControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private RestaurantUseCase restaurantUseCase;
+    private CreateRestaurantUseCase restaurantUseCase;
 
     AutoCloseable openMocks;
 
