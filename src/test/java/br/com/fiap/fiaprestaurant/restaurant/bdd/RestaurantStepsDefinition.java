@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import static br.com.fiap.fiaprestaurant.restaurant.infra.utils.RestaurantHelper.createRestaurantRequest;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantRequest;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 

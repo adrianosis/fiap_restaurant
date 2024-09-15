@@ -1,15 +1,14 @@
 package br.com.fiap.fiaprestaurant.restaurant.infra.persistence;
 
-import br.com.fiap.fiaprestaurant.restaurant.infra.utils.RestaurantHelper;
+import br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
-import static br.com.fiap.fiaprestaurant.restaurant.infra.utils.RestaurantHelper.saveRestaurantEntity;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.saveRestaurantEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -83,7 +82,7 @@ public class RestaurantRepositoryIT {
     }
 
     @Test
-    void shouldFindAllRestaurants() {
+    void shouldFindAllByNameOrLocationOrType() {
         //Act
         var restaurants = restaurantRepository.findAll();
 

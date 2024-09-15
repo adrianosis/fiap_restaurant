@@ -7,33 +7,31 @@ import br.com.fiap.fiaprestaurant.restaurant.infra.persistence.RestaurantReposit
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class RestaurantRepositoryGateway implements RestaurantGateway {
 
-    private final RestaurantRepository restaurantRepository;
-    private final RestaurantEntityMapper restaurantEntityMapper;
+    private final RestaurantRepository repository;
+    private final RestaurantEntityMapper mapper;
 
     @Override
     public Restaurant create(Restaurant restaurant) {
-        RestaurantEntity entity = restaurantEntityMapper.toEntity(restaurant);
-        restaurantRepository.save(entity);
+        RestaurantEntity entity = mapper.toEntity(restaurant);
+        repository.save(entity);
 
-        return restaurantEntityMapper.toDomain(entity);
+        return mapper.toDomain(entity);
     }
 
     @Override
-    public Restaurant findById(long restaurantId) throws Exception {
-        return restaurantRepository.findById(restaurantId)
-                .map(restaurantEntityMapper::toDomain);
-
-        return null;
+    public Restaurant findById(long restaurantId) {
+        return repository.findById(restaurantId)
+                .map(mapper::toDomain)
+                .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
     }
 
     @Override
     public List<Restaurant> findAllByNameOrLocationOrType(String name, String location, String type) {
-        return null;
+        return repository.findAll().stream().map(mapper::toDomain).toList();
     }
 
 }

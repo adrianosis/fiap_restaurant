@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class FinsAllRestaurantsByNameOrLocationOrKitchenTypeUseCase {
+public class FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase {
 
 
     private final RestaurantGateway restaurantGateway;

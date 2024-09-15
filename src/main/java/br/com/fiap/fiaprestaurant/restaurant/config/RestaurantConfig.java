@@ -3,7 +3,7 @@ package br.com.fiap.fiaprestaurant.restaurant.config;
 import br.com.fiap.fiaprestaurant.restaurant.application.gateways.RestaurantGateway;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.CreateRestaurantUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindRestaurantByIdUseCase;
-import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FinsAllRestaurantsByNameOrLocationOrKitchenTypeUseCase;
+import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.infra.gateways.RestaurantEntityMapper;
 import br.com.fiap.fiaprestaurant.restaurant.infra.gateways.RestaurantRepositoryGateway;
 import br.com.fiap.fiaprestaurant.restaurant.infra.persistence.RestaurantRepository;
@@ -24,8 +24,8 @@ public class RestaurantConfig {
     }
 
     @Bean
-    FinsAllRestaurantsByNameOrLocationOrKitchenTypeUseCase finsAllRestaurantsByNameOrLocationOrKitchenTypeUseCase(RestaurantGateway restaurantGateway){
-        return new FinsAllRestaurantsByNameOrLocationOrKitchenTypeUseCase(restaurantGateway);
+    FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase finsAllRestaurantsByNameOrLocationOrKitchenTypeUseCase(RestaurantGateway restaurantGateway){
+        return new FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase(restaurantGateway);
     }
 
     @Bean

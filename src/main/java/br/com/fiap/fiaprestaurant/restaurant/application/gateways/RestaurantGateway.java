@@ -8,7 +8,7 @@ public interface RestaurantGateway {
 
     Restaurant create(Restaurant restaurant);
 
-    Restaurant findById(long restaurantId) throws Exception;
+    Restaurant findById(long restaurantId);
 
     List<Restaurant> findAllByNameOrLocationOrType(String name, String location, String type);
 

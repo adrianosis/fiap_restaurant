@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static br.com.fiap.fiaprestaurant.restaurant.infra.utils.RestaurantHelper.createRestaurant;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class RestaurantUseCaseTest {
+public class CreateRestaurantUseCaseTest {
 
-    private CreateRestaurantUseCase restaurantUseCase;
+    private CreateRestaurantUseCase createRestaurantUseCase;
 
     @Mock
     private RestaurantGateway restaurantGateway;
@@ -24,7 +24,7 @@ public class RestaurantUseCaseTest {
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
-        restaurantUseCase = new CreateRestaurantUseCase(restaurantGateway);
+        createRestaurantUseCase = new CreateRestaurantUseCase(restaurantGateway);
     }
 
     @AfterEach
@@ -40,7 +40,7 @@ public class RestaurantUseCaseTest {
         when(restaurantGateway.create(any(Restaurant.class))).thenAnswer(i -> i.getArgument(0));
 
         // Act
-        var savedRestaurant = restaurantUseCase.create(restaurant);
+        var savedRestaurant = createRestaurantUseCase.execute(restaurant);
 
         // Assert
         verify(restaurantGateway, times(1)).create(restaurant);

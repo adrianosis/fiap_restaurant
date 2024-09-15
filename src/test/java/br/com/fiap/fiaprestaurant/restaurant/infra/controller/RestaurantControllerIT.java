@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.time.format.DateTimeFormatter;
 
-import static br.com.fiap.fiaprestaurant.restaurant.infra.utils.RestaurantHelper.createRestaurantRequest;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantRequest;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
@@ -25,6 +25,9 @@ public class RestaurantControllerIT {
 
     @LocalServerPort
     private int port;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @BeforeEach
     public void setup() {
@@ -59,16 +62,48 @@ public class RestaurantControllerIT {
                 .body("postalCode", equalTo(restaurantRequest.getPostalCode()));
     }
 
+    @Test
+    void shouldFindRestaurantById() {
+        var id = 1L;
 
-    @Autowired
-    ObjectMapper objectMapper;
-
-    public String asJsonString(final Object obj) {
-        try {
-            return objectMapper.writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        given()
+                .filter(new AllureRestAssured())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .get("/restaurant/{id}", id)
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("./schemas/RestaurantResponseSchema.json"));
     }
+
+    @Test
+    void shouldFindAllRestaurantsByNameOrLocationOrKitchenType() {
+        var name = "%";
+        var location = "%";
+        var kitchenType = "PIZZARIA";
+
+        given()
+                .filter(new AllureRestAssured())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .queryParam("name", name)
+                .queryParam("location", location)
+                .queryParam("kitchenType", kitchenType)
+                .get("/restaurant")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("./schemas/RestaurantArrayResponseSchema.json"));
+    }
+
+
+
+
+//    public String asJsonString(final Object obj) {
+//        try {
+//            return objectMapper.writeValueAsString(obj);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 }

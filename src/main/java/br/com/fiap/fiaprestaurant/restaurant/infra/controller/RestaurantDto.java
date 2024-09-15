@@ -1,13 +1,15 @@
 package br.com.fiap.fiaprestaurant.restaurant.infra.controller;
 
-import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Address;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class RestaurantDto {
 
@@ -25,20 +27,26 @@ public class RestaurantDto {
     private String state;
     private String postalCode;
 
-    public RestaurantDto(Restaurant restaurant) {
-        this.id = restaurant.getId();
-        this.name = restaurant.getName();
-        this.kitchenType = restaurant.getKitchenType();
-        this.capacity = restaurant.getCapacity();
-        this.openingTime = restaurant.getOpeningTime();
-        this.closingTime = restaurant.getClosingTime();
-        this.street = restaurant.getAddress().getStreet();
-        this.number = restaurant.getAddress().getNumber();
-        this.complement = restaurant.getAddress().getComplement();
-        this.district = restaurant.getAddress().getDistrict();
-        this.city = restaurant.getAddress().getCity();
-        this.state = restaurant.getAddress().getState();
-        this.postalCode = restaurant.getAddress().getPostalCode();
+    public static RestaurantDto toDto(Restaurant restaurant) {
+        return new RestaurantDto(
+                restaurant.getId(),
+                restaurant.getName(),
+                restaurant.getKitchenType(),
+                restaurant.getCapacity(),
+                restaurant.getOpeningTime(),
+                restaurant.getClosingTime(),
+                restaurant.getAddress().getStreet(),
+                restaurant.getAddress().getNumber(),
+                restaurant.getAddress().getComplement(),
+                restaurant.getAddress().getDistrict(),
+                restaurant.getAddress().getCity(),
+                restaurant.getAddress().getState(),
+                restaurant.getAddress().getPostalCode()
+        );
+    }
+
+    public static List<RestaurantDto> toListDto(List<Restaurant> restaurants) {
+        return restaurants.stream().map(RestaurantDto::toDto).toList();
     }
 
 }

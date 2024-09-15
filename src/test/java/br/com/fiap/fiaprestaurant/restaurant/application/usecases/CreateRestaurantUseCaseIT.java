@@ -8,17 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import static br.com.fiap.fiaprestaurant.restaurant.infra.utils.RestaurantHelper.createRestaurant;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurant;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
 @ActiveProfiles("test")
-public class RestaurantUseCaseIT {
+public class CreateRestaurantUseCaseIT {
 
     @Autowired
-    private CreateRestaurantUseCase restaurantUseCase;
+    private CreateRestaurantUseCase createRestaurantUseCase;
 
     @Test
     void shouldCreateRestaurant() {
@@ -27,7 +27,7 @@ public class RestaurantUseCaseIT {
         restaurant.setId(4L);
 
         // Act
-        var savedRestaurant = restaurantUseCase.create(restaurant);
+        var savedRestaurant = createRestaurantUseCase.execute(restaurant);
 
         // Assert
         assertThat(savedRestaurant).isNotNull().isInstanceOf(Restaurant.class);

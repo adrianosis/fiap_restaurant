@@ -9,7 +9,7 @@ public class FindRestaurantByIdUseCase {
 
     private final RestaurantGateway restaurantGateway;
 
-    public Restaurant execute(long restaurantId) {
+    public Restaurant execute(long restaurantId) throws Exception {
         return restaurantGateway.findById(restaurantId);
     }
 

@@ -1,4 +1,4 @@
-package br.com.fiap.fiaprestaurant.restaurant.infra.utils;
+package br.com.fiap.fiaprestaurant.restaurant.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;

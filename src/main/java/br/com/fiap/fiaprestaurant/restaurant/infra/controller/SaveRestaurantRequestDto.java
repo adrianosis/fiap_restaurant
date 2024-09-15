@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaveRestaurantDto {
+public class SaveRestaurantRequestDto {
 
     private String name;
     private String kitchenType;

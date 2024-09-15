@@ -9,7 +9,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static br.com.fiap.fiaprestaurant.restaurant.infra.utils.RestaurantHelper.createRestaurantEntity;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -23,17 +23,17 @@ public class RestaurantRepositoryTest {
     AutoCloseable openMocks;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
     }
 
     @AfterEach
-    void tearDown() throws Exception{
+    void tearDown() throws Exception {
         openMocks.close();
     }
 
     @Test
-    void shouldSaveRestaurant(){
+    void shouldSaveRestaurant() {
         // Arrange
         var restaurant = createRestaurantEntity();
 
@@ -50,7 +50,7 @@ public class RestaurantRepositoryTest {
     }
 
     @Test
-    void shouldFindRestaurantById(){
+    void shouldFindRestaurantById() {
         // Arrange
         long id = 1L;
         var restaurant = createRestaurantEntity();
@@ -58,12 +58,12 @@ public class RestaurantRepositoryTest {
         when(restaurantRepository.findById(any(Long.class))).thenReturn(Optional.of(restaurant));
 
         // Act
-        var restaurantOptional = restaurantRepository.findById(id);
+        var foundRestaurant = restaurantRepository.findById(id);
 
         // Assert
         verify(restaurantRepository, times(1)).findById(any(Long.class));
-        assertThat (restaurantOptional).isPresent().containsSame(restaurant);
-        restaurantOptional.ifPresent(savedRestaurantEntity -> {
+        assertThat(foundRestaurant).isPresent().containsSame(restaurant);
+        foundRestaurant.ifPresent(savedRestaurantEntity -> {
             assertThat(savedRestaurantEntity.getId()).isEqualTo(restaurant.getId());
             assertThat(savedRestaurantEntity.getName()).isEqualTo(restaurant.getName());
             assertThat(savedRestaurantEntity.getKitchenType()).isEqualTo(restaurant.getKitchenType());
@@ -75,7 +75,7 @@ public class RestaurantRepositoryTest {
     }
 
     @Test
-    void shouldDeleteRestaurantById(){
+    void shouldDeleteRestaurantById() {
         // Arrange
         Long id = 1L;
         doNothing().when(restaurantRepository).deleteById(any(Long.class));
@@ -88,19 +88,23 @@ public class RestaurantRepositoryTest {
     }
 
     @Test
-    void shouldFindAllRestaurants() {
+    void shouldFindAllByNameOrLocationOrType() {
         // Arrange
+        var name = "%";
+        var location = "%";
+        var kitchenType = "PIZZARIA";
+
         var restaurant1 = createRestaurantEntity();
         var restaurant2 = createRestaurantEntity();
         var listRestaurants = Arrays.asList(restaurant1, restaurant2);
-
-        when(restaurantRepository.findAll()).thenReturn(listRestaurants);
+        when(restaurantRepository.findAllByNameOrLocationOrType(any(String.class), any(String.class), any(String.class)))
+                .thenReturn(listRestaurants);
 
         // Act
-        var foundRestaurants = restaurantRepository.findAll();
+        var foundRestaurants = restaurantRepository.findAllByNameOrLocationOrType(name, location, kitchenType);
 
         // Assert
-        verify(restaurantRepository, times(1)).findAll();
+        verify(restaurantRepository, times(1)).findAllByNameOrLocationOrType(name, location, kitchenType);
         assertThat(foundRestaurants)
                 .hasSize(2)
                 .containsExactlyInAnyOrder(restaurant1, restaurant2);
