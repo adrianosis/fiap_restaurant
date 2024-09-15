@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "name": {
+        "type": "string"
+      },
+      "kitchenType": {
+        "type": "string"
+      },
+      "capacity": {
+        "type": "number"
+      },
+      "openingTime": {
+        "type": "string"
+      },
+      "closingTime": {
+        "type": "string"
+      },
+      "street": {
+        "type": "string"
+      },
+      "number": {
+        "type": "string"
+      },
+      "complement": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "district": {
+        "type": "string"
+      },
+      "city": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string"
+      },
+      "postalCode": {
+        "type": "string"
+      }
+    }
+  }
+}

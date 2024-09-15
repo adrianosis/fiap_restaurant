@@ -5,7 +5,7 @@ public enum ReservationStatus {
     RESERVED,
     WAITING,
     IN_PROGRESS,
-    FINISHED,
+    COMPLETED,
     CANCELLED
 
 

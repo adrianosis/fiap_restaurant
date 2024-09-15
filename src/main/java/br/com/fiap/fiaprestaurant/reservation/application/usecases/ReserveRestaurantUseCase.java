@@ -5,12 +5,11 @@ import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.reservation.application.gateways.ReservationGateway;
 import br.com.fiap.fiaprestaurant.reservation.application.inputs.ReserveRestaurantInput;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
-import br.com.fiap.fiaprestaurant.reservation.domain.entity.ReservationStatus;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindRestaurantByIdUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 public class ReserveRestaurantUseCase {
@@ -20,7 +19,11 @@ public class ReserveRestaurantUseCase {
     private final FindCustomerByIdUseCase findCustomerByIdUseCase;
 
     public Reservation execute(ReserveRestaurantInput input) throws Exception {
-        long reservationCount = reservationGateway.countByCurrentDateTimeAndRestaurantId(input.getReservationDateTime(), input.getRestaurantId());
+        LocalDateTime startDateTime = input.getReservationDateTime().withMinute(0).withSecond(0);
+        LocalDateTime endDateTime = startDateTime.plusHours(1);
+
+        long reservationCount = reservationGateway.countByRestaurantIdAndReservationDateTime(
+                input.getRestaurantId(), startDateTime, endDateTime);
 
         Restaurant restaurant = findRestaurantByIdUseCase.execute(input.getRestaurantId());
         Customer customer = findCustomerByIdUseCase.execute(input.getCustomerId());
@@ -32,16 +35,5 @@ public class ReserveRestaurantUseCase {
 
         return reservation;
     }
-
-//    public Reservation changeStatus(long reservationId, ReservationStatus status, String tableTag) {
-//        Reservation reservation = reservationGateway.findById(reservationId);
-//        reservation.changeStatus(status, tableTag);
-//
-//        return reservation;
-//    }
-
-//    public List<Reservation> findAllFinishedReservationsByCustomerId(long customerId) {
-//        return reservationGateway.findAllFinishedReservationsByCustomerId(customerId);
-//    }
 
 }

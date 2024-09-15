@@ -25,6 +25,23 @@ create table restaurant
     constraint restaurant_pk primary key (id)
 );
 
+create table reservation
+(
+    id                   serial    not null,
+    reservation_datetime timestamp not null,
+    guests               int      not null,
+    start_service        timestamp,
+    end_service          timestamp,
+    table_tag            varchar(10),
+    status               int      not null,
+    restaurant_id        int      not null,
+    customer_id          int      not null,
+    constraint reservation_pk primary key (id),
+    foreign key (restaurant_id) references restaurant (id),
+    foreign key (customer_id) references customer (id)
+);
+
+
 
 create table reviews
 (
