@@ -19,7 +19,7 @@ public class ReviewsController {
 
     @PostMapping
     public ResponseEntity<String> createReview(@RequestBody ReviewsDto reviewsDto) {
-        createReviewsUseCase.create(reviewsDto.toDomain());
+//        createReviewsUseCase.create(reviewsDto.toDomain());
         return new ResponseEntity<>("Obrigado pela sua avaliação", HttpStatus.CREATED);
     }
 }

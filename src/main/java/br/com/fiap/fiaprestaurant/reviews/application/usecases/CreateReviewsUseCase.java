@@ -12,10 +12,10 @@ import lombok.RequiredArgsConstructor;
 public class CreateReviewsUseCase {
 
     private final ReviewsGateway reviewsGateway;
-    private final FindReservationByIdUseCase findReservationByIdUseCase;
+//    private final FindReservationByIdUseCase findReservationByIdUseCase;
 
     public Reviews execute(Reviews reviews) throws Exception {
-        Reservation reservation = findReservationByIdUseCase.execute(0L);
+//        Reservation reservation = findReservationByIdUseCase.execute(0L);
 
         return reviewsGateway.create(reviews);
     }
