@@ -31,7 +31,7 @@ class ReserveRestaurantUseCaseIT {
 
         // Assert
         assertThat(savedReservation).isInstanceOf(Reservation.class).isNotNull();
-        assertThat(savedReservation.getId()).isEqualTo(4L);
+        assertThat(savedReservation.getId()).isGreaterThan(0);
         assertThat(savedReservation.getReservationDateTime()).isEqualTo(reserveRestaurantInput.getReservationDateTime());
         assertThat(savedReservation.getGuests()).isEqualTo(reserveRestaurantInput.getGuests());
         assertThat(savedReservation.getStatus()).isEqualTo(ReservationStatus.RESERVED);

@@ -39,6 +39,7 @@ public class ReservationHelper {
         return Reservation.builder()
                 .reservationDateTime(LocalDateTime.of (2024,9,15, 18, 0))
                 .guests(11)
+                .status(ReservationStatus.RESERVED)
                 .restaurant(restaurant)
                 .customer(customer)
                 .build();

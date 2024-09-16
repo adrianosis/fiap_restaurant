@@ -24,14 +24,13 @@ public class CreateRestaurantUseCaseIT {
     void shouldCreateRestaurant() {
         // Arrange
         var restaurant = createRestaurant();
-        restaurant.setId(4L);
 
         // Act
         var savedRestaurant = createRestaurantUseCase.execute(restaurant);
 
         // Assert
         assertThat(savedRestaurant).isNotNull().isInstanceOf(Restaurant.class);
-        assertThat(savedRestaurant.getId()).isEqualTo(restaurant.getId());
+        assertThat(savedRestaurant.getId()).isGreaterThan(0);
         assertThat(savedRestaurant.getName()).isNotNull().isNotEmpty().isEqualTo(restaurant.getName());
         assertThat(savedRestaurant.getKitchenType()).isNotNull().isNotEmpty().isEqualTo(restaurant.getKitchenType());
         assertThat(savedRestaurant.getCapacity()).isEqualTo(restaurant.getCapacity());

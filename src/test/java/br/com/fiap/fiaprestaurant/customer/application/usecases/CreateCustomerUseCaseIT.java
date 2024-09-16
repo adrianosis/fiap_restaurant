@@ -36,15 +36,15 @@ class CreateCustomerUseCaseIT {
                 .isNotNull()
                 .isInstanceOf(Customer.class);
         assertThat(savedCustomer.getId())
-                .isNotNull();
+                .isGreaterThan(0);
         assertThat(savedCustomer.getName())
                 .isNotNull()
                 .isNotEmpty()
-                .isEqualTo(savedCustomer.getName());
+                .isEqualTo(customer.getName());
         assertThat(savedCustomer.getEmail())
                 .isNotNull()
                 .isNotEmpty()
-                .isEqualTo(savedCustomer.getEmail());
+                .isEqualTo(customer.getEmail());
     }
 
 

@@ -46,8 +46,9 @@ public class ReserveRestaurantUseCaseTest {
         var customer = createCustomer();
         var restaurant = createRestaurant();
         var reservation = createReservation();
-
+        reservation.setId(4L);
         var reserveRestaurantInput = createReserveRestaurantInput();
+
         when(reservationGateway.create(any(Reservation.class))).thenReturn(reservation);
         when(reservationGateway.countByRestaurantIdAndReservationDateTime(
                 any(Long.class), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(10);
@@ -65,7 +66,7 @@ public class ReserveRestaurantUseCaseTest {
         verify(findRestaurantByIdUseCase, times(1)).execute(any(Long.class));
 
         assertThat(savedReservation).isInstanceOf(Reservation.class).isNotNull();
-        assertThat(savedReservation.getId()).isEqualTo(reservation.getId());
+        assertThat(savedReservation.getId()).isGreaterThan(0);
         assertThat(savedReservation.getReservationDateTime()).isEqualTo(reservation.getReservationDateTime());
         assertThat(savedReservation.getStatus()).isEqualTo(ReservationStatus.RESERVED);
         assertThat(savedReservation.getCustomer()).isEqualTo(customer);

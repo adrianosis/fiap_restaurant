@@ -49,7 +49,7 @@ class CustomerControllerIT {
 
     @Test
     void shouldDeleteCustomerById() {
-        var id = 1;
+        var id = 2;
         given()
                 .filter(new AllureRestAssured())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
