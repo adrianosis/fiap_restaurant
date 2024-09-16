@@ -38,8 +38,8 @@ public class ReservationRepositoryGateway implements ReservationGateway {
 
     @Override
     public List<Reservation> findAllOpenedReservationsByRestaurantIdAndReservationDateTime(long restaurantId,
-                                                                                           LocalTime startDateTime,
-                                                                                           LocalTime endDateTime) {
+                                                                                           LocalDateTime startDateTime,
+                                                                                           LocalDateTime endDateTime) {
         return repository.findAllOpenedReservationsByRestaurantIdAndReservationDateTime(restaurantId, startDateTime, endDateTime)
                 .stream().map(mapper::toDomain).toList();
     }

@@ -22,7 +22,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
            "and r.status in ('RESERVED', 'WAITING', 'IN_PROGRESS') " +
            "order by r.reservationDateTime")
     List<ReservationEntity> findAllOpenedReservationsByRestaurantIdAndReservationDateTime(
-            long restaurantId, LocalTime startDateTime, LocalTime endDateTime);
+            long restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
     @Query("select r from ReservationEntity r " +
            "where r.customer.id = :customerId " +

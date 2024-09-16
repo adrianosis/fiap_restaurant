@@ -23,7 +23,7 @@ class CreateCustomerUseCaseTest {
     AutoCloseable openMocks;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
         createCustomerUseCase = new CreateCustomerUseCase( customerGateway);
     }

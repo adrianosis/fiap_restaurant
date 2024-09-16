@@ -1,7 +1,6 @@
 package br.com.fiap.fiaprestaurant.restaurant.application.usecases;
 
 import br.com.fiap.fiaprestaurant.restaurant.application.gateways.RestaurantGateway;
-import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +10,11 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 
 import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurant;
-import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCaseTest {
+public class FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCaseTest {
 
 
     private FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase findAllRestaurantsByNameOrLocationOrKitchenTypeUseCase;

@@ -15,7 +15,7 @@ public class ReserveRestaurantRequestDto {
     private long restaurantId;
     private long customerId;
 
-    public ReserveRestaurantInput toDomain() {
+    public ReserveRestaurantInput toInput() {
         return new ReserveRestaurantInput(reservationDateTime, guests, restaurantId, customerId);
     }
 

@@ -15,7 +15,7 @@ public interface ReservationGateway {
     int countByRestaurantIdAndReservationDateTime(long restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
     List<Reservation> findAllOpenedReservationsByRestaurantIdAndReservationDateTime(
-            long restaurantId, LocalTime startDateTime, LocalTime endDateTime);
+            long restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
     List<Reservation> findAllFinishedReservationsByCustomerId(long customerId);
 

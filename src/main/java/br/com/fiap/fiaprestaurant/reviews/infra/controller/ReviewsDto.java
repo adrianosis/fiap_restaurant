@@ -9,6 +9,7 @@ public class ReviewsDto {
     private Long id;
     private int score;
     private String comment;
+    private long reservationId;
     private SaveRestaurantRequestDto restaurant;
     private Customer customer;
 

@@ -3,11 +3,13 @@ package br.com.fiap.fiaprestaurant.reservation.domain.entity;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 @AllArgsConstructor
 public class Reservation {
 

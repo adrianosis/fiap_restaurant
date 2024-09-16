@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<ReservationDto> reserve(@RequestBody ReserveRestaurantRequestDto requestDto) throws Exception {
-        Reservation reservation = reserveRestaurantUseCase.execute(requestDto.toDomain());
+        Reservation reservation = reserveRestaurantUseCase.execute(requestDto.toInput());
 
         return new ResponseEntity<>(ReservationDto.toDto(reservation), HttpStatus.CREATED);
     }
@@ -42,8 +43,8 @@ public class ReservationController {
 
     @GetMapping("/restaurant/{restaurantId}/opened")
     public ResponseEntity<List<ReservationDto>> findAllOpenedReservationsByRestaurantAndReservationDateTimeId(@PathVariable long restaurantId,
-                                                                                                              @RequestParam LocalTime startDateTime,
-                                                                                                              @RequestParam LocalTime endDateTime) {
+                                                                                                              @RequestParam LocalDateTime startDateTime,
+                                                                                                              @RequestParam LocalDateTime endDateTime) {
         List<Reservation> reservations = findAllOpenedReservationsByRestaurantIdAndReservationDateTimeUseCase.execute(
                 restaurantId, startDateTime, endDateTime);
         return new ResponseEntity<>(ReservationDto.toListDto(reservations), HttpStatus.OK);

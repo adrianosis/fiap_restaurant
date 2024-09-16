@@ -105,9 +105,7 @@ public class RestaurantRepositoryTest {
 
         // Assert
         verify(restaurantRepository, times(1)).findAllByNameOrLocationOrType(name, location, kitchenType);
-        assertThat(foundRestaurants)
-                .hasSize(2)
-                .containsExactlyInAnyOrder(restaurant1, restaurant2);
+        assertThat(foundRestaurants).hasSize(2).containsExactlyInAnyOrder(restaurant1, restaurant2);
     }
 
 

@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantEntity;
 import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.saveRestaurantEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,7 +30,7 @@ public class RestaurantRepositoryIT {
     @Test
     void shouldSaveRestaurant() {
         // Arranje
-        var restaurant = RestaurantHelper.createRestaurantEntity();
+        var restaurant = createRestaurantEntity();
 
         // Act
         var savedRestaurant = restaurantRepository.save(restaurant);

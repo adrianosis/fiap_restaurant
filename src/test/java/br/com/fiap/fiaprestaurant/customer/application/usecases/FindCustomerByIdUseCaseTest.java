@@ -23,7 +23,7 @@ class FindCustomerByIdUseCaseTest {
     AutoCloseable openMocks;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
         findCustomerByIdUseCase = new FindCustomerByIdUseCase( customerGateway);
     }

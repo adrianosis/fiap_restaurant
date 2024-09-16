@@ -33,15 +33,13 @@ create table reservation
     start_service        timestamp,
     end_service          timestamp,
     table_tag            varchar(10),
-    status               int      not null,
+    status               varchar(12)      not null,
     restaurant_id        int      not null,
     customer_id          int      not null,
     constraint reservation_pk primary key (id),
     foreign key (restaurant_id) references restaurant (id),
     foreign key (customer_id) references customer (id)
 );
-
-
 
 create table reviews
 (
