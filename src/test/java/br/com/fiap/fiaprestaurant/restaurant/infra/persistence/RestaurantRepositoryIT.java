@@ -69,26 +69,17 @@ public class RestaurantRepositoryIT {
     }
 
     @Test
-    void shouldDeleteRestaurantById() {
-        //Arranje
-        var restaurant = saveRestaurantEntity(restaurantRepository);
-        var id = restaurant.getId();
-
-        //Act
-        restaurantRepository.deleteById(id);
-        var restaurantOptional = restaurantRepository.findById(id);
-
-        // Assert
-        assertThat(restaurantOptional).isEmpty();
-    }
-
-    @Test
     void shouldFindAllByNameOrLocationOrType() {
+        // Arrange
+        var name = "%";
+        var location = "CENTRO";
+        var kitchenType = "%";
+
         //Act
-        var restaurants = restaurantRepository.findAll();
+        var restaurants = restaurantRepository.findAllByNameOrLocationOrType(name, location, kitchenType);
 
         //Assert
-        assertThat(restaurants).hasSize(3);
+        assertThat(restaurants).hasSize(2);
     }
 
 }

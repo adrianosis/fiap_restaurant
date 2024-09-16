@@ -7,7 +7,6 @@ import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationRepos
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class ReservationRepositoryGateway implements ReservationGateway {
     @Override
     public Reservation create(Reservation reservation) {
         ReservationEntity entity = mapper.toEntity(reservation);
-        repository.save(entity);
+        entity = repository.save(entity);
 
         return mapper.toDomain(entity);
     }
@@ -45,8 +44,8 @@ public class ReservationRepositoryGateway implements ReservationGateway {
     }
 
     @Override
-    public List<Reservation> findAllFinishedReservationsByCustomerId(long customerId) {
-        return repository.findAllFinishedReservationsByCustomerId(customerId).stream().map(mapper::toDomain).toList();
+    public List<Reservation> findAllCompletedReservationsByCustomerId(long customerId) {
+        return repository.findAllCompletedReservationsByCustomerId(customerId).stream().map(mapper::toDomain).toList();
     }
 
 }

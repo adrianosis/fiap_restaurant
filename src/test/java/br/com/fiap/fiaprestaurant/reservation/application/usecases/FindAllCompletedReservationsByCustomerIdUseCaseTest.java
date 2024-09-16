@@ -23,7 +23,7 @@ public class FindAllCompletedReservationsByCustomerIdUseCaseTest {
     AutoCloseable openMocks;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
         findAllCompletedReservationsByCustomerIdUseCase = new FindAllCompletedReservationsByCustomerIdUseCase(reservationGateway);
     }
@@ -41,14 +41,14 @@ public class FindAllCompletedReservationsByCustomerIdUseCaseTest {
         var reservation1 = createReservation();
         var reservation2 = createReservation();
         var reservations = Arrays.asList(reservation1, reservation2);
-        when(reservationGateway.findAllFinishedReservationsByCustomerId(any(Long.class)))
+        when(reservationGateway.findAllCompletedReservationsByCustomerId(any(Long.class)))
                 .thenReturn(reservations);
 
         // Act
         var foundReservations = findAllCompletedReservationsByCustomerIdUseCase.execute(customerId);
 
         // Assert
-        verify(reservationGateway, times(1)).findAllFinishedReservationsByCustomerId(customerId);
+        verify(reservationGateway, times(1)).findAllCompletedReservationsByCustomerId(customerId);
         assertThat(foundReservations).hasSize(2).containsExactlyInAnyOrder(reservation1, reservation2);
     }
 

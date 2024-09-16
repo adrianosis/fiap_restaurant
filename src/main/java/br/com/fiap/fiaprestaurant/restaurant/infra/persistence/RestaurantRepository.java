@@ -9,10 +9,10 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, Lo
 
     @Query("select r from RestaurantEntity r " +
            "where r.name like :name " +
-           "or r.address.street like :location " +
+           "and (r.address.street like :location " +
            "or r.address.district like :location " +
-           "or r.address.city like :location " +
-           "or r.kitchenType like :type " +
+           "or r.address.city like :location) " +
+           "and r.kitchenType like :type " +
            "order by r.name")
     List<RestaurantEntity> findAllByNameOrLocationOrType(String name, String location, String type);
 

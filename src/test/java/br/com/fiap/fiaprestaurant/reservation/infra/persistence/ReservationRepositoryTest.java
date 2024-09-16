@@ -91,7 +91,7 @@ public class ReservationRepositoryTest {
     }
 
     @Test
-    void shouldFindAllFinishedReservationsByCustomerId() {
+    void shouldFindAllCompletedReservationsByCustomerId() {
         // Arrange
         long customerId = 1L;
 
@@ -99,13 +99,13 @@ public class ReservationRepositoryTest {
         var reservation2 = createReservationEntity();
         var reservations = Arrays.asList(reservation1, reservation2);
 
-        when(reservationRepository.findAllFinishedReservationsByCustomerId(any(Long.class))).thenReturn(reservations);
+        when(reservationRepository.findAllCompletedReservationsByCustomerId(any(Long.class))).thenReturn(reservations);
 
         // Act
-        var foundReservations = reservationRepository.findAllFinishedReservationsByCustomerId(customerId);
+        var foundReservations = reservationRepository.findAllCompletedReservationsByCustomerId(customerId);
 
         // Assert
-        verify(reservationRepository, times(1)).findAllFinishedReservationsByCustomerId(any(Long.class));
+        verify(reservationRepository, times(1)).findAllCompletedReservationsByCustomerId(any(Long.class));
         assertThat(foundReservations).hasSize(2).containsExactlyInAnyOrder(reservation1, reservation2);
     }
 

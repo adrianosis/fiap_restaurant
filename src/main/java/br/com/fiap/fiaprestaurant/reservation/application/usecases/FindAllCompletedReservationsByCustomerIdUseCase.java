@@ -12,7 +12,7 @@ public class FindAllCompletedReservationsByCustomerIdUseCase {
     private final ReservationGateway reservationGateway;
 
     public List<Reservation> execute(long customerId){
-        return reservationGateway.findAllFinishedReservationsByCustomerId(customerId);
+        return reservationGateway.findAllCompletedReservationsByCustomerId(customerId);
     }
 
 }

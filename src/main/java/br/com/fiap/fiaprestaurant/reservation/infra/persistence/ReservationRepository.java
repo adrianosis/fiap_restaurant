@@ -28,6 +28,6 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
            "where r.customer.id = :customerId " +
            "and r.status = 'COMPLETED' " +
            "order by r.endService")
-    List<ReservationEntity> findAllFinishedReservationsByCustomerId(long customerId);
+    List<ReservationEntity> findAllCompletedReservationsByCustomerId(long customerId);
 
 }

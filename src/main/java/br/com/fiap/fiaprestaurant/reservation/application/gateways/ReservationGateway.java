@@ -17,6 +17,6 @@ public interface ReservationGateway {
     List<Reservation> findAllOpenedReservationsByRestaurantIdAndReservationDateTime(
             long restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
-    List<Reservation> findAllFinishedReservationsByCustomerId(long customerId);
+    List<Reservation> findAllCompletedReservationsByCustomerId(long customerId);
 
 }

@@ -76,12 +76,12 @@ public class ReservationRepositoryIT {
     }
 
     @Test
-    void shouldFindAllFinishedReservationsByCustomerId() {
+    void shouldFindAllCompletedReservationsByCustomerId() {
         // Arrange
         var customerId = 1L;
 
         // Act
-        var reservations = reservationRepository.findAllFinishedReservationsByCustomerId(customerId);
+        var reservations = reservationRepository.findAllCompletedReservationsByCustomerId(customerId);
 
         //Assert
         assertThat(reservations).hasSize(1);

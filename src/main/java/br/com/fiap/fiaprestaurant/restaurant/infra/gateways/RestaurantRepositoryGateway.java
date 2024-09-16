@@ -17,7 +17,7 @@ public class RestaurantRepositoryGateway implements RestaurantGateway {
     @Override
     public Restaurant create(Restaurant restaurant) {
         RestaurantEntity entity = mapper.toEntity(restaurant);
-        repository.save(entity);
+        entity = repository.save(entity);
 
         return mapper.toDomain(entity);
     }
@@ -31,7 +31,7 @@ public class RestaurantRepositoryGateway implements RestaurantGateway {
 
     @Override
     public List<Restaurant> findAllByNameOrLocationOrType(String name, String location, String type) {
-        return repository.findAll().stream().map(mapper::toDomain).toList();
+        return repository.findAllByNameOrLocationOrType(name, location, type).stream().map(mapper::toDomain).toList();
     }
 
 }

@@ -6,8 +6,6 @@ import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntit
 import br.com.fiap.fiaprestaurant.restaurant.infra.gateways.RestaurantEntityMapper;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 public class ReservationEntityMapper {
 
