@@ -1,6 +1,8 @@
 package br.com.fiap.fiaprestaurant.reviews.infra.persistance;
 
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerEntity;
+import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
+import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntity;
 import br.com.fiap.fiaprestaurant.restaurant.infra.persistence.RestaurantEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "reviews")
-public class ReviewsEntity {
+@Table(name = "review")
+public class ReviewEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -21,12 +23,7 @@ public class ReviewsEntity {
     private int score;
     @Column(name = "comment", length = 500)
     private String comment;
-
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    private RestaurantEntity restaurant;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private CustomerEntity customer;
+    @OneToOne
+    @JoinColumn(name = "reservation_id", nullable = false)
+    private ReservationEntity reservation;
 }

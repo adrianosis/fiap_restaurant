@@ -41,16 +41,14 @@ create table reservation
     foreign key (customer_id) references customer (id)
 );
 
-create table reviews
+create table review
 (
     id            int auto_increment not null,
     score         int    not null,
     comment       varchar(500),
-    restaurant_id int    not null,
-    customer_id   int    not null,
+    reservation_id int    not null,
     constraint reviews_id primary key (id),
-    foreign key (restaurant_id) references restaurant (id),
-    foreign key (customer_id) references customer (id)
+    foreign key (reservation_id) references reservation (id)
 );
 
 insert into customer (name, email)

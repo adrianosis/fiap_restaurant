@@ -1,34 +1,32 @@
 package br.com.fiap.fiaprestaurant.reviews.infra.gateways;
 
 import br.com.fiap.fiaprestaurant.customer.infra.gateways.CustomerEntityMapper;
+import br.com.fiap.fiaprestaurant.reservation.infra.gateways.ReservationEntityMapper;
 import br.com.fiap.fiaprestaurant.restaurant.infra.gateways.RestaurantEntityMapper;
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Reviews;
-import br.com.fiap.fiaprestaurant.reviews.infra.persistance.ReviewsEntity;
+import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
+import br.com.fiap.fiaprestaurant.reviews.infra.persistance.ReviewEntity;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class ReviewsEntityMapper {
 
+    private final ReservationEntityMapper reservationEntityMapper;
 
-    private final RestaurantEntityMapper restaurantMapper = new RestaurantEntityMapper();
-    private final CustomerEntityMapper customerEntityMapper = new CustomerEntityMapper();
-
-
-    public ReviewsEntity toEntity(Reviews review) {
-        return new ReviewsEntity(
+    public ReviewEntity toEntity(Review review) {
+        return new ReviewEntity(
                 review.getId(),
                 review.getScore(),
                 review.getComment(),
-                restaurantMapper.toEntity(review.getRestaurant()),
-                customerEntityMapper.toEntity(review.getCustomer())
+                reservationEntityMapper.toEntity(review.getReservation())
         );
     }
 
-    public Reviews toDomain(ReviewsEntity entity) {
-        return new Reviews(
-                entity.getId(),
-                entity.getScore(),
-                entity.getComment(),
-                restaurantMapper.toDomain(entity.getRestaurant()),
-                customerEntityMapper.toDomain(entity.getCustomer())
+    public Review toDomain(ReviewEntity review) {
+        return new Review(
+                review.getId(),
+                review.getScore(),
+                review.getComment(),
+                reservationEntityMapper.toDomain(review.getReservation())
         );
     }
 }

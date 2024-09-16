@@ -3,10 +3,7 @@ package br.com.fiap.fiaprestaurant.reservation.config;
 import br.com.fiap.fiaprestaurant.customer.application.usecases.FindCustomerByIdUseCase;
 import br.com.fiap.fiaprestaurant.customer.infra.gateways.CustomerEntityMapper;
 import br.com.fiap.fiaprestaurant.reservation.application.gateways.ReservationGateway;
-import br.com.fiap.fiaprestaurant.reservation.application.usecases.ChangeReservationStatusUseCase;
-import br.com.fiap.fiaprestaurant.reservation.application.usecases.FindAllCompletedReservationsByCustomerIdUseCase;
-import br.com.fiap.fiaprestaurant.reservation.application.usecases.FindAllOpenedReservationsByRestaurantIdAndReservationDateTimeUseCase;
-import br.com.fiap.fiaprestaurant.reservation.application.usecases.ReserveRestaurantUseCase;
+import br.com.fiap.fiaprestaurant.reservation.application.usecases.*;
 import br.com.fiap.fiaprestaurant.reservation.infra.gateways.ReservationEntityMapper;
 import br.com.fiap.fiaprestaurant.reservation.infra.gateways.ReservationRepositoryGateway;
 import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationRepository;
@@ -51,5 +48,11 @@ public class ReservationConfig {
     ReservationEntityMapper reservationEntityMapper(CustomerEntityMapper customerEntityMapper, RestaurantEntityMapper restaurantEntityMapper){
         return new ReservationEntityMapper(customerEntityMapper, restaurantEntityMapper);
     }
+
+    @Bean
+    FindReservationByIdUseCase findReservationByIdUseCase(ReservationGateway reservationGateway) {
+        return new FindReservationByIdUseCase(reservationGateway);
+    }
+
 
 }
