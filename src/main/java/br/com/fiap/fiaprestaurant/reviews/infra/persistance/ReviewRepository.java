@@ -1,6 +1,5 @@
 package br.com.fiap.fiaprestaurant.reviews.infra.persistance;
 
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

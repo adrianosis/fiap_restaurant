@@ -24,8 +24,6 @@ public class CreateReviewUseCase {
             throw new Exception("You only can evaluate restaurants with completed reservations.");
         }
 
-        Customer customer = reservation.getCustomer();
-        Restaurant restaurant = reservation.getRestaurant();
         Review review = new Review(reviewInput.getScore(), reviewInput.getComment(), reservation);
 
         return reviewGateway.create(review);

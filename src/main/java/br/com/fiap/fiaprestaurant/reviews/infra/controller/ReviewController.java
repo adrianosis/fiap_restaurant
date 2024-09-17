@@ -4,6 +4,7 @@ import br.com.fiap.fiaprestaurant.reviews.application.usecases.FindAllReviewsByR
 import br.com.fiap.fiaprestaurant.reviews.application.usecases.FindReviewByIdUseCase;
 import br.com.fiap.fiaprestaurant.reviews.application.usecases.RemoveReviewByIdUseCase;
 import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReview(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Void> deleteReview(@Valid @PathVariable Long id) throws Exception {
         removeReviewByIdUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }

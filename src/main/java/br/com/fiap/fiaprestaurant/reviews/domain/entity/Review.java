@@ -1,8 +1,6 @@
 package br.com.fiap.fiaprestaurant.reviews.domain.entity;
 
-import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
-import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

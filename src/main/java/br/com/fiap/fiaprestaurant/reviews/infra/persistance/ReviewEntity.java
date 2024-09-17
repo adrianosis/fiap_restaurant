@@ -1,9 +1,6 @@
 package br.com.fiap.fiaprestaurant.reviews.infra.persistance;
 
-import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerEntity;
-import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntity;
-import br.com.fiap.fiaprestaurant.restaurant.infra.persistence.RestaurantEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

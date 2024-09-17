@@ -1,6 +1,5 @@
 package br.com.fiap.fiaprestaurant.reviews.application.input;
 
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
