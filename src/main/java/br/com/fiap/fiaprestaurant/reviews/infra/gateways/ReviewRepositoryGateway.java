@@ -38,6 +38,6 @@ public class ReviewRepositoryGateway implements ReviewGateway {
     public void removeReviewById(Long reviewId) {
         ReviewEntity review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("Review not found"));
-        reviewRepository.findById(review.getId());
+        reviewRepository.deleteById(review.getId());
     }
 }
