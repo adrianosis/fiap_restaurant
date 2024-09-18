@@ -22,7 +22,7 @@ public class ReserveRestaurantUseCase {
         LocalDateTime startDateTime = input.getReservationDateTime().withMinute(0).withSecond(0);
         LocalDateTime endDateTime = startDateTime.plusHours(1);
 
-        long reservationCount = reservationGateway.countByRestaurantIdAndReservationDateTime(
+        int reservationCount = reservationGateway.countByRestaurantIdAndReservationDateTime(
                 input.getRestaurantId(), startDateTime, endDateTime);
 
         Restaurant restaurant = findRestaurantByIdUseCase.execute(input.getRestaurantId());

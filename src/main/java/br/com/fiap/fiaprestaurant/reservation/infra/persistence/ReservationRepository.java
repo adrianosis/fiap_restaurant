@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<ReservationEntity, Long> {
 
@@ -14,7 +15,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
            "where r.restaurant.id = :restaurantId " +
            "and r.reservationDateTime between :startDateTime and :endDateTime " +
            "and r.status in ('RESERVED', 'WAITING', 'IN_PROGRESS') ")
-    int countByRestaurantIdAndReservationDateTime(long restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime);
+    Optional<Integer> countByRestaurantIdAndReservationDateTime(long restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
     @Query("select r from ReservationEntity r " +
            "where r.restaurant.id = :restaurantId " +

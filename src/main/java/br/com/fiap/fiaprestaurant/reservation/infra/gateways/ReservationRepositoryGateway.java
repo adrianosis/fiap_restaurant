@@ -32,7 +32,7 @@ public class ReservationRepositoryGateway implements ReservationGateway {
 
     @Override
     public int countByRestaurantIdAndReservationDateTime(long restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        return repository.countByRestaurantIdAndReservationDateTime(restaurantId, startDateTime, endDateTime);
+        return repository.countByRestaurantIdAndReservationDateTime(restaurantId, startDateTime, endDateTime).orElse(0);
     }
 
     @Override
