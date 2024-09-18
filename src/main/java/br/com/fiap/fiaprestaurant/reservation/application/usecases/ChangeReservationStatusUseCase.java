@@ -15,7 +15,7 @@ public class ChangeReservationStatusUseCase {
 
         reservation.changeStatus(status, tableTag);
 
-        return reservation;
+        return reservationGateway.save(reservation);
     }
 
 }

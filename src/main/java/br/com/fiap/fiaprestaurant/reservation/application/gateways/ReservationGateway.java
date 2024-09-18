@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ReservationGateway {
 
-    Reservation create(Reservation reservation);
+    Reservation save(Reservation reservation);
 
     Reservation findById(long reservationId);
 

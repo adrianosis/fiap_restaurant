@@ -31,7 +31,7 @@ public class ReserveRestaurantUseCase {
         Reservation reservation = new Reservation(input.getReservationDateTime(), input.getGuests(), restaurant, customer);
         reservation.confirmReserve(reservationCount);
 
-        reservation = reservationGateway.create(reservation);
+        reservation = reservationGateway.save(reservation);
 
         return reservation;
     }

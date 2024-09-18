@@ -49,7 +49,7 @@ public class ReserveRestaurantUseCaseTest {
         reservation.setId(4L);
         var reserveRestaurantInput = createReserveRestaurantInput();
 
-        when(reservationGateway.create(any(Reservation.class))).thenReturn(reservation);
+        when(reservationGateway.save(any(Reservation.class))).thenReturn(reservation);
         when(reservationGateway.countByRestaurantIdAndReservationDateTime(
                 any(Long.class), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(10);
         when(findCustomerByIdUseCase.execute(any(Long.class))).thenReturn(customer);
@@ -59,7 +59,7 @@ public class ReserveRestaurantUseCaseTest {
         var savedReservation = reserveRestaurantUseCase.execute(reserveRestaurantInput);
 
         // Assert
-        verify(reservationGateway, times(1)).create(any(Reservation.class));
+        verify(reservationGateway, times(1)).save(any(Reservation.class));
         verify(reservationGateway, times(1)).countByRestaurantIdAndReservationDateTime(
                 any(Long.class), any(LocalDateTime.class), any(LocalDateTime.class));
         verify(findCustomerByIdUseCase, times(1)).execute(any(Long.class));
@@ -81,7 +81,7 @@ public class ReserveRestaurantUseCaseTest {
         var reservation = createReservation();
 
         var reserveRestaurantInput = createReserveRestaurantInput();
-        when(reservationGateway.create(any(Reservation.class))).thenReturn(reservation);
+        when(reservationGateway.save(any(Reservation.class))).thenReturn(reservation);
         when(reservationGateway.countByRestaurantIdAndReservationDateTime(
                 any(Long.class), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(90);
         when(findCustomerByIdUseCase.execute(any(Long.class))).thenReturn(customer);

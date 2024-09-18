@@ -16,7 +16,7 @@ public class ReservationRepositoryGateway implements ReservationGateway {
     private final ReservationEntityMapper mapper;
 
     @Override
-    public Reservation create(Reservation reservation) {
+    public Reservation save(Reservation reservation) {
         ReservationEntity entity = mapper.toEntity(reservation);
         entity = repository.save(entity);
 
