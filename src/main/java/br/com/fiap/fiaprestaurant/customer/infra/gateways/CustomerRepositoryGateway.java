@@ -4,17 +4,18 @@ import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerEntity;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerRepository;
+import br.com.fiap.fiaprestaurant.review.infra.persistance.ReviewEntity;
+import br.com.fiap.fiaprestaurant.shared.exception.RestaurantException;
 
 import java.util.List;
-import java.util.Optional;
 
-public class CustomerRepositoryJpa implements CustomerGateway {
+public class CustomerRepositoryGateway implements CustomerGateway {
 
     private CustomerRepository customerRepository;
 
     private final CustomerEntityMapper mapper;
 
-    public CustomerRepositoryJpa(CustomerRepository customerRepository, CustomerEntityMapper mapper) {
+    public CustomerRepositoryGateway(CustomerRepository customerRepository, CustomerEntityMapper mapper) {
         this.customerRepository = customerRepository;
         this.mapper = mapper;
     }
@@ -27,14 +28,19 @@ public class CustomerRepositoryJpa implements CustomerGateway {
     }
 
     @Override
-    public Optional<Customer> findCustomerById(Long id) {
-        Optional<CustomerEntity> optionalCustomer =  this.customerRepository.findById(id);
-        return optionalCustomer.map(mapper::toDomain);
+    public Customer findCustomerById(Long id) {
+        return this.customerRepository.findById(id)
+                .map(mapper::toDomain)
+                .orElseThrow(() -> new RestaurantException("Customer not found"));
+
     }
 
     @Override
     public void deleteCustomerById(Long id) {
-        this.customerRepository.deleteById(id);
+
+        CustomerEntity customer = this.customerRepository.findById(id)
+                .orElseThrow(() -> new RestaurantException("Customer not found"));
+        this.customerRepository.deleteById(customer.getId());
     }
 
     @Override

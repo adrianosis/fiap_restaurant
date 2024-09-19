@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import java.util.Optional;
 
 import static br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper.createCustomer;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,7 +31,7 @@ class DeleteCustomerByIdUseCaseTest {
         var customer = createCustomer();
         customer.setId(id);
         when(customerGateway.findCustomerById(id))
-                .thenReturn(Optional.of(customer));
+                .thenReturn(customer);
         doNothing()
                 .when(customerGateway).deleteCustomerById(id);
 
@@ -40,7 +39,6 @@ class DeleteCustomerByIdUseCaseTest {
         deleteCustomerByIdUseCase.execute(id);
 
         // Assert
-        verify(customerGateway, times(1)).findCustomerById(any(Long.class));
         verify(customerGateway, times(1)).deleteCustomerById(any(Long.class));
     }
 }

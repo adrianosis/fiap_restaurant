@@ -1,5 +1,6 @@
 package br.com.fiap.fiaprestaurant.customer.infra.controller;
 
+import br.com.fiap.fiaprestaurant.customer.application.input.CustomerInput;
 import br.com.fiap.fiaprestaurant.customer.application.usecases.CreateCustomerUseCase;
 import br.com.fiap.fiaprestaurant.customer.application.usecases.DeleteCustomerByIdUseCase;
 import br.com.fiap.fiaprestaurant.customer.application.usecases.FindAllCustomersUseCase;
@@ -63,15 +64,16 @@ class CustomerControllerTest {
 
     @Test
     void shouldCreateCustomer() throws Exception {
-        var customerRequest = CustomerHelper.createCustomerEntity();
-        when(createCustomerUseCase.execute(any(Customer.class)))
-                .thenAnswer(i -> i.getArgument(0));
+        var customerRequestDto = CustomerHelper.createCustomerDTORequest();
+        var customer = new Customer(customerRequestDto.getName(), customerRequestDto.getEmail());
+        when(createCustomerUseCase.execute(any(CustomerInput.class)))
+                .thenReturn(customer);
 
         mockMvc.perform(post("/customer")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(customerRequest)))
+                .content(asJsonString(customerRequestDto)))
                 .andExpect(status().isCreated());
-        verify(createCustomerUseCase, times(1)).execute(any(Customer.class));
+        verify(createCustomerUseCase, times(1)).execute(any(CustomerInput.class));
     }
 
     @Test

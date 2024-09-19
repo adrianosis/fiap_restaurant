@@ -6,7 +6,7 @@ import br.com.fiap.fiaprestaurant.customer.application.usecases.DeleteCustomerBy
 import br.com.fiap.fiaprestaurant.customer.application.usecases.FindAllCustomersUseCase;
 import br.com.fiap.fiaprestaurant.customer.application.usecases.FindCustomerByIdUseCase;
 import br.com.fiap.fiaprestaurant.customer.infra.gateways.CustomerEntityMapper;
-import br.com.fiap.fiaprestaurant.customer.infra.gateways.CustomerRepositoryJpa;
+import br.com.fiap.fiaprestaurant.customer.infra.gateways.CustomerRepositoryGateway;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +32,8 @@ public class CustomerConfig {
     }
 
     @Bean
-    CustomerRepositoryJpa createRepositoryJpa(CustomerRepository customerRepository, CustomerEntityMapper mapper){
-        return new CustomerRepositoryJpa(customerRepository, mapper);
+    CustomerRepositoryGateway createRepositoryJpa(CustomerRepository customerRepository, CustomerEntityMapper mapper){
+        return new CustomerRepositoryGateway(customerRepository, mapper);
     }
 
     @Bean

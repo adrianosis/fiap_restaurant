@@ -35,7 +35,7 @@ class FindCustomerByIdUseCaseTest {
         var id = 1L;
         var customer = createCustomer();
         when(customerGateway.findCustomerById(any(Long.class)))
-                .thenReturn(Optional.of(customer));
+                .thenReturn(customer);
 
         // Act
         var customerFound = findCustomerByIdUseCase.execute(id);

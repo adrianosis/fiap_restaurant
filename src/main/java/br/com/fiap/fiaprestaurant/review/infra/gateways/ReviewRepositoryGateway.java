@@ -4,6 +4,7 @@ import br.com.fiap.fiaprestaurant.review.application.gateways.ReviewGateway;
 import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
 import br.com.fiap.fiaprestaurant.review.infra.persistance.ReviewEntity;
 import br.com.fiap.fiaprestaurant.review.infra.persistance.ReviewRepository;
+import br.com.fiap.fiaprestaurant.shared.exception.RestaurantException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -37,13 +38,13 @@ public class ReviewRepositoryGateway implements ReviewGateway {
     public Review findReviewById(Long reviewId) {
         return reviewRepository.findById(reviewId)
                 .map(reviewsEntityMapper::toDomain)
-                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
+                .orElseThrow(() -> new RestaurantException("Review not found"));
     }
 
     @Override
     public void removeReviewById(Long reviewId) {
         ReviewEntity review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("Review not found"));
+                .orElseThrow(() -> new RestaurantException("Review not found"));
         reviewRepository.deleteById(review.getId());
     }
 }

@@ -1,15 +1,16 @@
-package br.com.fiap.fiaprestaurant.customer.infra.controller;
+package br.com.fiap.fiaprestaurant.customer.application.input;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerResponseDto{
+public class CustomerInput {
 
-    private Long id;
     private String name;
     private String email;
 }

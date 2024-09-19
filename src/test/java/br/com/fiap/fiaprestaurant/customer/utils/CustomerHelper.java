@@ -1,6 +1,7 @@
 package br.com.fiap.fiaprestaurant.customer.utils;
 
 import br.com.fiap.fiaprestaurant.customer.application.gateways.CustomerGateway;
+import br.com.fiap.fiaprestaurant.customer.application.input.CustomerInput;
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.customer.infra.controller.CustomerRequestDto;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerEntity;
@@ -14,6 +15,12 @@ public class CustomerHelper {
 
     public static CustomerEntity createCustomerEntity() {
         return CustomerEntity.builder()
+                .name("Claudia").email("claudia@gmail.com")
+                .build();
+    }
+
+    public static CustomerInput createCustomerInput() {
+        return CustomerInput.builder()
                 .name("Claudia").email("claudia@gmail.com")
                 .build();
     }

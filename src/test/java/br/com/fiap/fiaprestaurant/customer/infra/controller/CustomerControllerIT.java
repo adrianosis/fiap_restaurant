@@ -43,8 +43,8 @@ class CustomerControllerIT {
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .body(matchesJsonSchemaInClasspath("./schemas/CustomerResponseSchema.json"))
-                .body("name", equalTo(customerRequest.name()))
-                .body("email", equalTo(customerRequest.email()));
+                .body("name", equalTo(customerRequest.getName()))
+                .body("email", equalTo(customerRequest.getEmail()));
     }
 
     @Test

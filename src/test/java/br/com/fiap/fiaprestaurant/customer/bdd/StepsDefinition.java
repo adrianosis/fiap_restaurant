@@ -51,7 +51,7 @@ public class StepsDefinition {
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .get(BASE_ENDPOINT + "/{id}", customerResponse.id());
+                .get(BASE_ENDPOINT + "/{id}", customerResponse.getId());
     }
 
     @Then("the customer is displayed successfully")
@@ -81,7 +81,7 @@ public class StepsDefinition {
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .delete(BASE_ENDPOINT + "/{id}", customerResponse.id());
+                .delete(BASE_ENDPOINT + "/{id}", customerResponse.getId());
     }
 
     @Then("the customer is removed successfully")

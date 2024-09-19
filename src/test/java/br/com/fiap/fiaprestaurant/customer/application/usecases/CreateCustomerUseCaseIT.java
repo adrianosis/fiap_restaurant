@@ -28,7 +28,7 @@ class CreateCustomerUseCaseIT {
     @Test
     void shouldCreateCustomer() {
         // Arrange
-        var customer = CustomerHelper.createCustomer();
+        var customer = CustomerHelper.createCustomerInput();
         // Act
         var savedCustomer = createCustomerUseCase.execute(customer);
         // Assert

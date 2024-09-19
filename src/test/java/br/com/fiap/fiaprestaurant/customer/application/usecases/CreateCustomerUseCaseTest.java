@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper.createCustomer;
+import static br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper.createCustomerInput;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -32,8 +33,7 @@ class CreateCustomerUseCaseTest {
     @Severity(SeverityLevel.BLOCKER)
     void shouldCreateCustomer() {
         // Arrange
-        var customer = createCustomer();
-        customer.setId(1L);
+        var customer = createCustomerInput();
         when(customerGateway.create(any(Customer.class)))
                 .thenAnswer(i -> i.getArgument(0));
 
@@ -50,7 +50,7 @@ class CreateCustomerUseCaseTest {
                 .isEqualTo(customer.getEmail());
         assertThat(savedCustomer.getId())
                 .isNotNull();
-        verify(customerGateway, times(1)).create(customer);
+        verify(customerGateway, times(1)).create(any(Customer.class));
     }
 
 }
