@@ -1,4 +1,4 @@
-package br.com.fiap.fiaprestaurant.reviews.application.input;
+package br.com.fiap.fiaprestaurant.review.application.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

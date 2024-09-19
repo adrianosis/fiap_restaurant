@@ -1,4 +1,4 @@
-package br.com.fiap.fiaprestaurant.reviews.domain.entity;
+package br.com.fiap.fiaprestaurant.review.domain.entity;
 
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import lombok.AllArgsConstructor;

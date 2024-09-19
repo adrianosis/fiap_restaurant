@@ -1,6 +1,6 @@
-package br.com.fiap.fiaprestaurant.reviews.application.usecases;
+package br.com.fiap.fiaprestaurant.review.application.usecases;
 
-import br.com.fiap.fiaprestaurant.reviews.application.gateways.ReviewGateway;
+import br.com.fiap.fiaprestaurant.review.application.gateways.ReviewGateway;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

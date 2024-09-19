@@ -1,6 +1,6 @@
-package br.com.fiap.fiaprestaurant.reviews.infra.controller;
+package br.com.fiap.fiaprestaurant.review.infra.controller;
 
-import br.com.fiap.fiaprestaurant.reviews.application.input.ReviewInput;
+import br.com.fiap.fiaprestaurant.review.application.input.ReviewInput;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

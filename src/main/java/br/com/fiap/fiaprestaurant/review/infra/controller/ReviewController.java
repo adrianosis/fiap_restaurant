@@ -1,15 +1,12 @@
-package br.com.fiap.fiaprestaurant.reviews.infra.controller;
+package br.com.fiap.fiaprestaurant.review.infra.controller;
 
-import br.com.fiap.fiaprestaurant.reviews.application.usecases.FindAllReviewsByRestaurantIdUseCase;
-import br.com.fiap.fiaprestaurant.reviews.application.usecases.FindReviewByIdUseCase;
-import br.com.fiap.fiaprestaurant.reviews.application.usecases.RemoveReviewByIdUseCase;
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
+import br.com.fiap.fiaprestaurant.review.application.usecases.*;
+import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import br.com.fiap.fiaprestaurant.reviews.application.usecases.CreateReviewUseCase;
 
 import java.util.List;
 
@@ -20,6 +17,7 @@ public class ReviewController {
 
     private final CreateReviewUseCase createReviewUseCase;
     private final FindAllReviewsByRestaurantIdUseCase findAllReviewsByRestaurantIdUseCase;
+    private final FindAllReviewsByCustomerIdUseCase findAllReviewsByCustomerIdUseCase;
     private final FindReviewByIdUseCase findReviewByIdUseCase;
     private final RemoveReviewByIdUseCase removeReviewByIdUseCase;
 
@@ -32,6 +30,12 @@ public class ReviewController {
     @GetMapping("/restaurant/{restaurantId}")
     ResponseEntity<List<ReviewResponseDto>> findAllReviewsByRestaurantId(@PathVariable Long restaurantId) throws Exception {
         List<Review> reviews = findAllReviewsByRestaurantIdUseCase.execute(restaurantId);
+        return new ResponseEntity<>(ReviewResponseDto.toListDto(reviews), HttpStatus.OK);
+    }
+
+    @GetMapping("/customer/{customerId}")
+    ResponseEntity<List<ReviewResponseDto>> findAllReviewsByCustomerId(@PathVariable Long customerId) throws Exception {
+        List<Review> reviews = findAllReviewsByCustomerIdUseCase.execute(customerId);
         return new ResponseEntity<>(ReviewResponseDto.toListDto(reviews), HttpStatus.OK);
     }
 

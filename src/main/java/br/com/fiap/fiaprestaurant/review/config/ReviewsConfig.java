@@ -1,15 +1,12 @@
-package br.com.fiap.fiaprestaurant.reviews.config;
+package br.com.fiap.fiaprestaurant.review.config;
 
 import br.com.fiap.fiaprestaurant.reservation.application.usecases.FindReservationByIdUseCase;
 import br.com.fiap.fiaprestaurant.reservation.infra.gateways.ReservationEntityMapper;
-import br.com.fiap.fiaprestaurant.reviews.application.gateways.ReviewGateway;
-import br.com.fiap.fiaprestaurant.reviews.application.usecases.CreateReviewUseCase;
-import br.com.fiap.fiaprestaurant.reviews.application.usecases.FindAllReviewsByRestaurantIdUseCase;
-import br.com.fiap.fiaprestaurant.reviews.application.usecases.FindReviewByIdUseCase;
-import br.com.fiap.fiaprestaurant.reviews.application.usecases.RemoveReviewByIdUseCase;
-import br.com.fiap.fiaprestaurant.reviews.infra.gateways.ReviewsEntityMapper;
-import br.com.fiap.fiaprestaurant.reviews.infra.gateways.ReviewRepositoryGateway;
-import br.com.fiap.fiaprestaurant.reviews.infra.persistance.ReviewRepository;
+import br.com.fiap.fiaprestaurant.review.application.gateways.ReviewGateway;
+import br.com.fiap.fiaprestaurant.review.application.usecases.*;
+import br.com.fiap.fiaprestaurant.review.infra.gateways.ReviewsEntityMapper;
+import br.com.fiap.fiaprestaurant.review.infra.gateways.ReviewRepositoryGateway;
+import br.com.fiap.fiaprestaurant.review.infra.persistance.ReviewRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,6 +21,11 @@ public class ReviewsConfig {
     @Bean
     FindAllReviewsByRestaurantIdUseCase findAllReviewsByRestaurantIdUseCase(ReviewGateway reviewGateway) {
         return new FindAllReviewsByRestaurantIdUseCase(reviewGateway);
+    }
+
+    @Bean
+    FindAllReviewsByCustomerIdUseCase findAllReviewsByCustomerIdUseCase(ReviewGateway reviewGateway) {
+        return new FindAllReviewsByCustomerIdUseCase(reviewGateway);
     }
 
     @Bean

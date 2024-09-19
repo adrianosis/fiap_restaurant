@@ -1,11 +1,9 @@
-package br.com.fiap.fiaprestaurant.reviews.infra.controller;
+package br.com.fiap.fiaprestaurant.review.infra.controller;
 
-import br.com.fiap.fiaprestaurant.reservation.infra.controller.ReservationDto;
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
+import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatusCode;
 
 import java.util.List;
 

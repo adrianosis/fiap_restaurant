@@ -1,4 +1,4 @@
-package br.com.fiap.fiaprestaurant.reviews.infra.persistance;
+package br.com.fiap.fiaprestaurant.review.infra.persistance;
 
 import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntity;
 import jakarta.persistence.*;

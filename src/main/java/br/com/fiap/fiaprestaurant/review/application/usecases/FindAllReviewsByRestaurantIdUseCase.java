@@ -1,7 +1,7 @@
-package br.com.fiap.fiaprestaurant.reviews.application.usecases;
+package br.com.fiap.fiaprestaurant.review.application.usecases;
 
-import br.com.fiap.fiaprestaurant.reviews.application.gateways.ReviewGateway;
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
+import br.com.fiap.fiaprestaurant.review.application.gateways.ReviewGateway;
+import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

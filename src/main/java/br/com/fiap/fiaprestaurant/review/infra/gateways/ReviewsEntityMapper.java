@@ -1,8 +1,8 @@
-package br.com.fiap.fiaprestaurant.reviews.infra.gateways;
+package br.com.fiap.fiaprestaurant.review.infra.gateways;
 
 import br.com.fiap.fiaprestaurant.reservation.infra.gateways.ReservationEntityMapper;
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
-import br.com.fiap.fiaprestaurant.reviews.infra.persistance.ReviewEntity;
+import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
+import br.com.fiap.fiaprestaurant.review.infra.persistance.ReviewEntity;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

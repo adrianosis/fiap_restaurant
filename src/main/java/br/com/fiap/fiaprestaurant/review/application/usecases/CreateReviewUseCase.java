@@ -1,14 +1,12 @@
-package br.com.fiap.fiaprestaurant.reviews.application.usecases;
+package br.com.fiap.fiaprestaurant.review.application.usecases;
 
 
-import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.reservation.application.usecases.FindReservationByIdUseCase;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.ReservationStatus;
-import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
-import br.com.fiap.fiaprestaurant.reviews.application.gateways.ReviewGateway;
-import br.com.fiap.fiaprestaurant.reviews.application.input.ReviewInput;
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
+import br.com.fiap.fiaprestaurant.review.application.gateways.ReviewGateway;
+import br.com.fiap.fiaprestaurant.review.application.input.ReviewInput;
+import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

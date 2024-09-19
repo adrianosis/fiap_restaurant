@@ -1,9 +1,9 @@
-package br.com.fiap.fiaprestaurant.reviews.infra.gateways;
+package br.com.fiap.fiaprestaurant.review.infra.gateways;
 
-import br.com.fiap.fiaprestaurant.reviews.application.gateways.ReviewGateway;
-import br.com.fiap.fiaprestaurant.reviews.domain.entity.Review;
-import br.com.fiap.fiaprestaurant.reviews.infra.persistance.ReviewEntity;
-import br.com.fiap.fiaprestaurant.reviews.infra.persistance.ReviewRepository;
+import br.com.fiap.fiaprestaurant.review.application.gateways.ReviewGateway;
+import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
+import br.com.fiap.fiaprestaurant.review.infra.persistance.ReviewEntity;
+import br.com.fiap.fiaprestaurant.review.infra.persistance.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -24,6 +24,12 @@ public class ReviewRepositoryGateway implements ReviewGateway {
     @Override
     public List<Review> findAllReviewsByRestaurantId(Long restaurantId) {
         return reviewRepository.findAllByRestaurantId(restaurantId)
+                .stream().map(reviewsEntityMapper::toDomain).toList();
+    }
+
+    @Override
+    public List<Review> findAllReviewsByCustomerId(Long customerId) {
+        return reviewRepository.findAllByCustomerId(customerId)
                 .stream().map(reviewsEntityMapper::toDomain).toList();
     }
 
