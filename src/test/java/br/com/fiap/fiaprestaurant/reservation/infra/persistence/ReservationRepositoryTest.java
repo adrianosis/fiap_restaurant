@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static br.com.fiap.fiaprestaurant.reservation.utils.ReservationHelper.createReservationEntity;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,7 +55,7 @@ public class ReservationRepositoryTest {
         LocalDateTime endDateTime = LocalDateTime.now().plusHours(1);
 
         int countGuests = 50;
-        when(reservationRepository.countByRestaurantIdAndReservationDateTime(any(Long.class), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(countGuests);
+        when(reservationRepository.countByRestaurantIdAndReservationDateTime(any(Long.class), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(Optional.of(countGuests));
 
         // Act
         var foundCountGuests = reservationRepository.countByRestaurantIdAndReservationDateTime(restaurantId, startDateTime, endDateTime);
@@ -63,7 +64,7 @@ public class ReservationRepositoryTest {
         verify(reservationRepository, times(1)).countByRestaurantIdAndReservationDateTime(
                 any(Long.class), any(LocalDateTime.class), any(LocalDateTime.class)
         );
-        assertThat(foundCountGuests).isEqualTo(countGuests);
+        assertThat(foundCountGuests.orElse(0)).isEqualTo(countGuests);
     }
 
     @Test

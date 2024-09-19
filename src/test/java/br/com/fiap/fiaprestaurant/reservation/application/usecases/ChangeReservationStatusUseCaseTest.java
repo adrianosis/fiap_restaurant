@@ -36,12 +36,14 @@ public class ChangeReservationStatusUseCaseTest {
         var reservation = createReservation();
         reservation.setId(id);
         when(reservationGateway.findById(any(Long.class))).thenReturn(reservation);
+        when(reservationGateway.save(any(Reservation.class))).thenReturn(reservation);
 
         // Act
         var changedReservation = changeReservationStatusUseCase.execute(id, ReservationStatus.IN_PROGRESS, "A07");
 
         // Assert
         verify(reservationGateway, times(1)).findById(id);
+        verify(reservationGateway, times(1)).save(reservation);
         assertThat(changedReservation).isInstanceOf(Reservation.class).isNotNull();
         assertThat(changedReservation.getId()).isEqualTo(reservation.getId());
         assertThat(changedReservation.getStatus()).isEqualTo(ReservationStatus.IN_PROGRESS);

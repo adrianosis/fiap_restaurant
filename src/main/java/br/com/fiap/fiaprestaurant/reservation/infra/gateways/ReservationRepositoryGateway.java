@@ -16,7 +16,7 @@ public class ReservationRepositoryGateway implements ReservationGateway {
     private final ReservationEntityMapper mapper;
 
     @Override
-    public Reservation create(Reservation reservation) {
+    public Reservation save(Reservation reservation) {
         ReservationEntity entity = mapper.toEntity(reservation);
         entity = repository.save(entity);
 
@@ -32,7 +32,7 @@ public class ReservationRepositoryGateway implements ReservationGateway {
 
     @Override
     public int countByRestaurantIdAndReservationDateTime(long restaurantId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        return repository.countByRestaurantIdAndReservationDateTime(restaurantId, startDateTime, endDateTime);
+        return repository.countByRestaurantIdAndReservationDateTime(restaurantId, startDateTime, endDateTime).orElse(0);
     }
 
     @Override

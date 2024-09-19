@@ -56,7 +56,7 @@ public class ReservationRepositoryIT {
         var countGuests = reservationRepository.countByRestaurantIdAndReservationDateTime(restaurantId, startDateTime, endDateTime);
 
         // Assert
-        assertThat(countGuests).isEqualTo(10);
+        assertThat(countGuests.orElse(0)).isEqualTo(10);
     }
 
     @Test

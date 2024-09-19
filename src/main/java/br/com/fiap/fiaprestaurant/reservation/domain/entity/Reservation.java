@@ -30,7 +30,7 @@ public class Reservation {
         this.customer = customer;
     }
 
-    public void confirmReserve(long reservationCount) throws Exception {
+    public void confirmReserve(int reservationCount) throws Exception {
         if ((reservationCount + this.guests) > restaurant.getCapacity()) {
             throw new Exception("Exceeded capacity");
         }
