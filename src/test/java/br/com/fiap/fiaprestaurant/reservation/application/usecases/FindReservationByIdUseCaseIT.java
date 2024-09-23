@@ -29,7 +29,7 @@ public class FindReservationByIdUseCaseIT {
     @Test
     void shouldFindReservationById() {
         // Arrange
-        long reservationId = 4L;
+        long reservationId = 5L;
         var reservation = saveReservation(reservationGateway);
 
         // Act

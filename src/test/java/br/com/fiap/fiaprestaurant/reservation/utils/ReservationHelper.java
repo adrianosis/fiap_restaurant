@@ -49,7 +49,6 @@ public class ReservationHelper {
 
     public static Reservation saveReservation(ReservationGateway reservationGateway) {
         var reservation = createReservation();
-        reservation.setId(4L);
         reservation.getCustomer().setId(1L);
         reservation.getRestaurant().setId(1L);
         reservationGateway.save(reservation);
