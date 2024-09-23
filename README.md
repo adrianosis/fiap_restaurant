@@ -55,7 +55,7 @@ This application is built using **Spring Boot** and **Java**, and it provides RE
 - **Gatling**: Tool for performance testing.
 
 ### Documentação da API
-A documentação da API pode ser acessada após iniciar a aplicação em:
+The API documentation can be accessed after starting the application at:
 ```
 http://localhost:8080/swagger-ui.html
 ```
