@@ -2,9 +2,11 @@ package br.com.fiap.fiaprestaurant.reservation.utils;
 
 import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
 import br.com.fiap.fiaprestaurant.customer.infra.persistence.CustomerEntity;
+import br.com.fiap.fiaprestaurant.reservation.application.gateways.ReservationGateway;
 import br.com.fiap.fiaprestaurant.reservation.application.inputs.ReserveRestaurantInput;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.ReservationStatus;
+import br.com.fiap.fiaprestaurant.reservation.infra.controller.ReserveRestaurantRequestDto;
 import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntity;
 import br.com.fiap.fiaprestaurant.restaurant.application.gateways.RestaurantGateway;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Address;
@@ -25,7 +27,7 @@ public class ReservationHelper {
 
     public static ReserveRestaurantInput createReserveRestaurantInput() {
         return ReserveRestaurantInput.builder()
-                .reservationDateTime(LocalDateTime.of (2024,9,15, 18, 0))
+                .reservationDateTime(LocalDateTime.of(2024, 9, 15, 18, 0))
                 .guests(11)
                 .restaurantId(1L)
                 .customerId(1L)
@@ -37,12 +39,21 @@ public class ReservationHelper {
         Customer customer = createCustomer();
 
         return Reservation.builder()
-                .reservationDateTime(LocalDateTime.of (2024,9,15, 18, 0))
+                .reservationDateTime(LocalDateTime.of(2024, 9, 15, 18, 0))
                 .guests(11)
                 .status(ReservationStatus.RESERVED)
                 .restaurant(restaurant)
                 .customer(customer)
                 .build();
+    }
+
+    public static Reservation saveReservation(ReservationGateway reservationGateway) {
+        var reservation = createReservation();
+        reservation.setId(4L);
+        reservation.getCustomer().setId(1L);
+        reservation.getRestaurant().setId(1L);
+        reservationGateway.save(reservation);
+        return reservationGateway.save(reservation);
     }
 
     public static ReservationEntity createReservationEntity() {
@@ -52,7 +63,7 @@ public class ReservationHelper {
         customerEntity.setId(1L);
 
         return ReservationEntity.builder()
-                .reservationDateTime(LocalDateTime.of (2024,9,15, 18, 0))
+                .reservationDateTime(LocalDateTime.of(2024, 9, 15, 18, 0))
                 .guests(11)
                 .status(ReservationStatus.RESERVED)
                 .restaurant(restaurantEntity)
@@ -60,69 +71,13 @@ public class ReservationHelper {
                 .build();
     }
 
-
-
-
-
-    /*
-        private long id;
-    private LocalDateTime reservationDateTime;
-    private int guests;
-    private LocalDateTime startService;
-    private LocalDateTime endService;
-    private String tableTag;
-    private ReservationStatus status;
-    private Restaurant restaurant;
-    private Customer customer;
-     */
-
-//    public static RestaurantEntity createRestaurantEntity() {
-//        AddressEntity address = AddressEntity.builder()
-//                .street("Av Rebouças")
-//                .number("1900")
-//                .district("Itaim")
-//                .city("São Paulo")
-//                .state("SP")
-//                .postalCode("05300100")
-//                .build();
-//
-//        return RestaurantEntity.builder()
-//                .name("PIZZARIA 10")
-//                .kitchenType("PIZZARIA")
-//                .capacity(100)
-//                .openingTime(LocalTime.of(9, 0))
-//                .closingTime(LocalTime.of(22, 0))
-//                .address(address)
-//                .build();
-//    }
-//
-//    public static Restaurant saveRestaurant(RestaurantGateway restaurantGateway) {
-//        var restaurant = createRestaurant();
-//        restaurant.setId(4L);
-//        return restaurantGateway.create(restaurant);
-//    }
-//
-//    public static RestaurantEntity saveRestaurantEntity(RestaurantRepository restaurantRepository) {
-//        var restaurant = createRestaurantEntity();
-//        restaurant.setId(4L);
-//        return restaurantRepository.save(restaurant);
-//    }
-//
-//    public static SaveRestaurantRequestDto createRestaurantRequest() {
-//        return SaveRestaurantRequestDto.builder()
-//                .name("PIZZARIA 10")
-//                .kitchenType("PIZZARIA")
-//                .capacity(100)
-//                .openingTime(LocalTime.of(9, 0))
-//                .closingTime(LocalTime.of(22, 0))
-//
-//                .street("Av Rebouças")
-//                .number("1900")
-//                .district("Itaim")
-//                .city("São Paulo")
-//                .state("SP")
-//                .postalCode("05300100")
-//                .build();
-//    }
+    public static ReserveRestaurantRequestDto createReserveRestaurantRequest() {
+        return ReserveRestaurantRequestDto.builder()
+                .reservationDateTime(LocalDateTime.of(2024, 9, 15, 18, 0))
+                .guests(11)
+                .restaurantId(1L)
+                .customerId(1L)
+                .build();
+    }
 
 }

@@ -4,6 +4,7 @@ import br.com.fiap.fiaprestaurant.restaurant.application.usecases.CreateRestaura
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindRestaurantByIdUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class RestaurantController {
     private final FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase findAllRestaurantsByNameOrLocationOrKitchenTypeUseCase;
 
     @PostMapping
-    public ResponseEntity<RestaurantDto> create(@RequestBody SaveRestaurantRequestDto requestDto) {
+    public ResponseEntity<RestaurantDto> create(@Valid @RequestBody SaveRestaurantRequestDto requestDto) {
         Restaurant restaurant = createRestaurantUseCase.execute(requestDto.toDomain());
         return new ResponseEntity<>(RestaurantDto.toDto(restaurant), HttpStatus.CREATED);
     }

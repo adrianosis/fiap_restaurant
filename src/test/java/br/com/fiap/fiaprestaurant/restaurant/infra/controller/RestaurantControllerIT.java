@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.time.format.DateTimeFormatter;
 
+import static br.com.fiap.fiaprestaurant.restaurant.utils.JsonHelper.asJsonString;
 import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantRequest;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -42,7 +43,7 @@ public class RestaurantControllerIT {
         given()
                 .filter(new AllureRestAssured())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(restaurantRequest)
+                .body( asJsonString(restaurantRequest))
                 .when()
                 .post("/restaurant")
                 .then()
@@ -94,16 +95,5 @@ public class RestaurantControllerIT {
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("./schemas/RestaurantArrayResponseSchema.json"));
     }
-
-
-
-
-//    public String asJsonString(final Object obj) {
-//        try {
-//            return objectMapper.writeValueAsString(obj);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
 }

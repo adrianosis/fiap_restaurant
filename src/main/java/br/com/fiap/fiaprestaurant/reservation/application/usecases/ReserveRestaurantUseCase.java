@@ -7,6 +7,7 @@ import br.com.fiap.fiaprestaurant.reservation.application.inputs.ReserveRestaura
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindRestaurantByIdUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
+import br.com.fiap.fiaprestaurant.shared.exception.RestaurantException;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class ReserveRestaurantUseCase {
     private final FindRestaurantByIdUseCase findRestaurantByIdUseCase;
     private final FindCustomerByIdUseCase findCustomerByIdUseCase;
 
-    public Reservation execute(ReserveRestaurantInput input) throws Exception {
+    public Reservation execute(ReserveRestaurantInput input) throws RestaurantException {
         LocalDateTime startDateTime = input.getReservationDateTime().withMinute(0).withSecond(0);
         LocalDateTime endDateTime = startDateTime.plusHours(1);
 

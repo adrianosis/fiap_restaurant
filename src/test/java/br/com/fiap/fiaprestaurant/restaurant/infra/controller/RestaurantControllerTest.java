@@ -49,7 +49,7 @@ public class RestaurantControllerTest {
     AutoCloseable openMocks;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
         RestaurantController restaurantController = new RestaurantController(createRestaurantUseCase,
                 findRestaurantByIdUseCase, findAllRestaurantsByNameOrLocationOrKitchenTypeUseCase);
