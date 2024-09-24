@@ -16,27 +16,38 @@ This application is built using **Spring Boot** and **Java**, and it provides RE
         - `GET /restaurant` - Search for restaurants by name, location, or type of cuisine.
         - `GET /restaurant/{restaurantId}` - Find a restaurant by ID.
 
-2. **Table Reservations**:
+2. **Customer Registration**  
+   Customers can be managed in the system, including creation and retrieval of information.  
+   **Endpoints**:
+   - `POST /customer` - Creates a new customer and returns the details of the created customer.
+   - `GET /customer` - Returns a list of all customers.
+   - `GET /customer/{id}` - Returns the details of a specific customer by ID.
+   - `DELETE /customer/{id}` - Deletes a customer by ID.
+
+
+3. **Table Reservations**:
     - Users can make reservations at restaurants for specific dates and times.
     - Endpoints:
         - `POST /reservation` - Create a new reservation.
         - `GET /reservation/restaurant/{restaurantId}/opened` - Find open reservations for a restaurant within a specified time range.
         - `PUT /reservation/{reservationId}` - Update the status or details of a reservation.
 
-3. **Reviews and Comments**:
+
+4. **Reviews and Comments**:
     - After visiting, users can rate the restaurant and leave comments about their experience.
     - Endpoints:
         - `POST /review` - Create a new review.
         - `GET /review/restaurant/{restaurantId}` - Find all reviews for a restaurant.
         - `GET /review/customer/{customerId}` - Find all reviews made by a customer.
         - `GET /review/{reviewId}` - Find a specific review by its ID.
+        - `DELETE /review/{id}` - Deletes a specific review by ID.
 
-4. **Restaurant Search**:
+5. **Restaurant Search**:
     - Users can search for restaurants by name, location, or type of cuisine.
     - Endpoint:
         - `GET /restaurant?name={name}&location={location}&kitchenType={kitchenType}` - Advanced restaurant search.
 
-5. **Reservation Management**:
+6. **Reservation Management**:
     - Restaurants can manage reservations by viewing and updating the status of their tables.
     - Endpoints:
         - `GET /reservation/customer/{customerId}/completed` - View completed reservations for a customer.
@@ -53,6 +64,20 @@ This application is built using **Spring Boot** and **Java**, and it provides RE
 - **Rest-Assured**: Framework for API testing.
 - **Swagger**: Interactive API documentation.
 - **Gatling**: Tool for performance testing.
+  Here is the updated section with **Cucumber** and **Allure** added:
+
+## Technologies Used
+- **Java 17**: Main programming language.
+- **Spring Boot 3.3.3**: Framework for creating APIs and microservices.
+- **Spring Data JPA**: Abstraction for data persistence.
+- **PostgreSQL**: Relational database.
+- **Flyway**: Version control for database migrations.
+- **JUnit & Mockito**: Unit testing frameworks.
+- **Rest-Assured**: Framework for API testing.
+- **Swagger**: Interactive API documentation.
+- **Allure**: Framework for generating detailed and visually appealing test reports.
+- **Gatling**: Tool for performance testing.
+- **Cucumber**: Behavior-Driven Development (BDD) testing tool to ensure functionality aligns with business requirements.
 
 ### API Documentation
 The API documentation can be accessed after starting the application at:
