@@ -3,12 +3,14 @@ package br.com.fiap.fiaprestaurant.review.infra.controller;
 import br.com.fiap.fiaprestaurant.review.application.input.ReviewInput;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ReviewRequestDto {
 
     @Min(value = 1, message = "The score must be at least 1.")

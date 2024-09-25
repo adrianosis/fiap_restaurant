@@ -10,6 +10,7 @@ public class ReviewsEntityMapper {
 
     private final ReservationEntityMapper reservationEntityMapper;
 
+
     public ReviewEntity toEntity(Review review) {
         return new ReviewEntity(
                 review.getId(),

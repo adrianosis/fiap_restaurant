@@ -2,15 +2,14 @@ package br.com.fiap.fiaprestaurant.review.infra.persistance;
 
 import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "review")
+@Builder
+@Data
 public class ReviewEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

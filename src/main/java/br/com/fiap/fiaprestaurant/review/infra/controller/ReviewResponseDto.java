@@ -22,7 +22,7 @@ public class ReviewResponseDto {
                 review.getId(),
                 review.getScore(),
                 review.getComment(),
-                review.getReservation().getId());
+                review.getReservation() != null ? review.getReservation().getId() : 0);
     }
 
     public static List<ReviewResponseDto> toListDto(List<Review> reviews) {
