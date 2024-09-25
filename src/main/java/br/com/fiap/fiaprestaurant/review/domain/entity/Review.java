@@ -2,12 +2,13 @@ package br.com.fiap.fiaprestaurant.review.domain.entity;
 
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Review {
 
     private long id;
