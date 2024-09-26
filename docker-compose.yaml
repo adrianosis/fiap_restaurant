@@ -19,9 +19,9 @@ services:
     depends_on:
       - postgres
     environment:
-      - DATABASE_HOST=localhost
+      - DATABASE_HOST=postgres
       - DATABASE_PORT=5432
-      - DATABASE_NAME=spacesoft_dev
+      - DATABASE_NAME=fiap_restaurant
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=123456
 #    environment:
