@@ -19,6 +19,12 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/fiap_restaurant
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 123456
+      - DATABASE_HOST=localhost
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=spacesoft_dev
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=123456
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/fiap_restaurant
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: 123456
