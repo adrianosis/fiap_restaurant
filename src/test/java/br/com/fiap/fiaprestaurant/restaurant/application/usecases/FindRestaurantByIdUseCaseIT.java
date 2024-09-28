@@ -29,10 +29,10 @@ public class FindRestaurantByIdUseCaseIT {
     public void shouldFindRestaurantById() throws Exception {
         // Arrange
         var restaurant = saveRestaurant(restaurantGateway);
-        restaurant.setId(4L);
+
 
         // Act
-        var foundRestaurant = findRestaurantByIdUseCase.execute(4L);
+        var foundRestaurant = findRestaurantByIdUseCase.execute(restaurant.getId());
 
         // Assert
         assertThat(foundRestaurant).isNotNull().isInstanceOf(Restaurant.class);

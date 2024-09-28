@@ -256,7 +256,12 @@
                         <artifactId>gatling-maven-plugin</artifactId>
                         <version>4.3.7</version>
                         <configuration>
-                            <simulationClass>br.com.fiap.fiaprestaurant.customer.performance.ApiPerformanceSimulation</simulationClass>
+                            <runMultipleSimulations>true</runMultipleSimulations>
+                            <includes>
+<!--                                <include>br.com.fiap.fiaprestaurant.customer.performance.CustomerPerformanceSimulation</include>-->
+                                <include>br.com.fiap.fiaprestaurant.reservation.performance.ReservationPerformanceSimulation</include>
+<!--                                <include>br.com.fiap.fiaprestaurant.restaurant.performance.RestaurantPerformanceSimulation</include>-->
+                            </includes>
                         </configuration>
                     </plugin>
                 </plugins>

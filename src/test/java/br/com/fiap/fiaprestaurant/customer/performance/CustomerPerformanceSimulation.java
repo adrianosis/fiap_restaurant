@@ -11,7 +11,7 @@ import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
-public class ApiPerformanceSimulation extends Simulation {
+public class CustomerPerformanceSimulation extends Simulation {
 
     private final HttpProtocolBuilder httpProtocol =
             http.baseUrl("http://localhost:8080")
