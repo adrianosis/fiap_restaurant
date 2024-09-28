@@ -18,7 +18,7 @@ public class ReservationDto {
     private LocalDateTime startService;
     private LocalDateTime endService;
     private String tableTag;
-    private ReservationStatus status;
+    private String status;
     private long restaurantId;
     private long customerId;
 
@@ -30,7 +30,7 @@ public class ReservationDto {
                 reservation.getStartService(),
                 reservation.getEndService(),
                 reservation.getTableTag(),
-                reservation.getStatus(),
+                reservation.getStatus().toString(),
                 reservation.getRestaurant().getId(),
                 reservation.getCustomer().getId()
         );

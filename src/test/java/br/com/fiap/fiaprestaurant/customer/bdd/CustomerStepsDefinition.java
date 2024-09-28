@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class StepsDefinition {
+public class CustomerStepsDefinition {
 
     private static final String BASE_ENDPOINT = "http://localhost:8080/customer";
     private Response response;
