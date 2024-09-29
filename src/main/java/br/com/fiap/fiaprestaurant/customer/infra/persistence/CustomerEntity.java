@@ -20,8 +20,4 @@ public class CustomerEntity {
     private String name;
     private String email;
 
-    public CustomerEntity(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
 }

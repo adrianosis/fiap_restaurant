@@ -29,11 +29,11 @@ public class CustomerPerformanceSimulation extends Simulation {
             .get("/customer/#{customerId}")
             .check(status().is(200));
 
-    ActionBuilder listarMensagemRequest = http("list customers")
+    ActionBuilder listCustomerRequest = http("list customers")
             .get("/customer")
             .check(status().is(200));
 
-    ActionBuilder removerCustomerRequest = http("remover mensagem")
+    ActionBuilder removerCustomerRequest = http("remove customer")
             .delete("/customer/#{customerId}")
             .check(status().is(204));
 
@@ -42,7 +42,7 @@ public class CustomerPerformanceSimulation extends Simulation {
             .exec(createCustomerRequest);
 
     ScenarioBuilder scenarioListCustomers = scenario("List Customer")
-            .exec(listarMensagemRequest);
+            .exec(listCustomerRequest);
 
     ScenarioBuilder scenarioAddSearchCustomer = scenario("Add and Search Customer")
             .exec(createCustomerRequest)
