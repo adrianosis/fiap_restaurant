@@ -24,7 +24,7 @@ public class RestaurantPerformanceSimulation extends Simulation {
                     {
                       "name": "PIZZA PRIME",
                       "kitchenType": "PIZZA",
-                      "capacity": 100,
+                      "capacity": 30000,
                       "openingTime": "08:00",
                       "closingTime": "18:00",
                       "street": "AV IMP LEOPOLDINA",
@@ -38,6 +38,25 @@ public class RestaurantPerformanceSimulation extends Simulation {
             .check(status().is(201))
             .check(jsonPath("$.id").saveAs("restaurantId"));
 
+    ActionBuilder updateRestaurantRequest = http("update restaurant")
+            .put("/restaurant/#{restaurantId}")
+            .body(StringBody("""
+                    {
+                      "name": "META PIZZA",
+                      "kitchenType": "PIZZA",
+                      "capacity": 20000,
+                      "openingTime": "10:00",
+                      "closingTime": "23:00",
+                      "street": "AV IMP LEOPOLDINA",
+                      "number": "900",
+                      "complement": "NT",
+                      "district": "VILA LEOPOLDINA",
+                      "city": "SAO PAULO",
+                      "state": "SP",
+                      "postalCode": "05316900"
+                    }"""))
+            .check(status().is(200));
+
     ActionBuilder findRestaurantRequest = http("find restaurant")
             .get("/restaurant/#{restaurantId}")
             .check(status().is(200));
@@ -48,6 +67,10 @@ public class RestaurantPerformanceSimulation extends Simulation {
 
     ScenarioBuilder scenarioCreateRestaurant = scenario("Create restaurant")
             .exec(createRestaurantRequest);
+
+    ScenarioBuilder scenarioUpdateRestaurant = scenario("Update restaurant")
+            .exec(createRestaurantRequest)
+            .exec(updateRestaurantRequest);
 
     ScenarioBuilder scenarioCreateAndSearchRestaurant = scenario("Create and Search restaurant")
             .exec(createRestaurantRequest)
@@ -60,6 +83,15 @@ public class RestaurantPerformanceSimulation extends Simulation {
     {
         setUp(
                 scenarioCreateRestaurant.injectOpen(
+                        rampUsersPerSec(1)
+                                .to(10)
+                                .during(Duration.ofSeconds(1)),
+                        constantUsersPerSec(10)
+                                .during(Duration.ofSeconds(6)),
+                        rampUsersPerSec(10)
+                                .to(1)
+                                .during(Duration.ofSeconds(1))),
+                scenarioUpdateRestaurant.injectOpen(
                         rampUsersPerSec(1)
                                 .to(10)
                                 .during(Duration.ofSeconds(1)),

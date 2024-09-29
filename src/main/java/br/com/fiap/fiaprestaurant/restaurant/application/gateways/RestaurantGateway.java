@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RestaurantGateway {
 
-    Restaurant create(Restaurant restaurant);
+    Restaurant save(Restaurant restaurant);
 
     Restaurant findById(long restaurantId);
 

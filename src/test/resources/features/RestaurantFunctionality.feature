@@ -5,6 +5,11 @@ Feature: API - Restaurant
     When I request the creation of a new restaurant
     Then the restaurant is saved successfully
 
+  Scenario: Update a restaurant
+    Given a restaurant has already been created
+    When I request an update for a restaurant
+    Then the restaurant is updated successfully
+
   Scenario: Get an existing restaurant by ID
     Given a restaurant has already been created
     When I request to retrieve the restaurant

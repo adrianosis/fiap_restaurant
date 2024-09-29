@@ -47,6 +47,27 @@ public class RestaurantStepsDefinition {
     }
 
 
+    @When("I request an update for a restaurant")
+    public RestaurantDto updateRestaurant() {
+        var restaurantRequest = createRestaurantRequest();
+
+        response = given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(restaurantRequest)
+                .when()
+                .put(BASE_ENDPOINT + "/{id}", restaurantResponse.getId());
+
+        return response.then().extract().as(RestaurantDto.class);
+    }
+
+    @Then("the restaurant is updated successfully")
+    public void restaurantUpdatedSuccess() {
+        response.then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("./schemas/RestaurantResponseSchema.json"));
+    }
+
+
     @Given("a restaurant has already been created")
     public void restaurantAlreadyExists() {
         restaurantResponse = createNewRestaurant();

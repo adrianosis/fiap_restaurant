@@ -3,6 +3,7 @@ package br.com.fiap.fiaprestaurant.restaurant.infra.controller;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.CreateRestaurantUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindRestaurantByIdUseCase;
+import br.com.fiap.fiaprestaurant.restaurant.application.usecases.UpdateRestaurantUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,6 +22,7 @@ import java.util.List;
 public class RestaurantController {
 
     private final CreateRestaurantUseCase createRestaurantUseCase;
+    private final UpdateRestaurantUseCase updateRestaurantUseCase;
     private final FindRestaurantByIdUseCase findRestaurantByIdUseCase;
     private final FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase findAllRestaurantsByNameOrLocationOrKitchenTypeUseCase;
 
@@ -31,9 +33,17 @@ public class RestaurantController {
         return new ResponseEntity<>(RestaurantDto.toDto(restaurant), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{restaurantId}")
+    @Operation(summary = "Update a restaurant", description = "Update a specific restaurant.")
+    public ResponseEntity<RestaurantDto> updateRestaurant(@PathVariable long restaurantId,
+                                                          @Valid @RequestBody SaveRestaurantRequestDto requestDto) {
+        Restaurant restaurant = updateRestaurantUseCase.execute(restaurantId, requestDto.toDomain());
+        return new ResponseEntity<>(RestaurantDto.toDto(restaurant), HttpStatus.OK);
+    }
+
     @GetMapping("/{restaurantId}")
     @Operation(summary = "Find a restaurant by ID", description = "Finds a specific restaurant by its unique ID.")
-    public ResponseEntity<RestaurantDto> findRestaurantById(@PathVariable long restaurantId) throws Exception {
+    public ResponseEntity<RestaurantDto> findRestaurantById(@PathVariable long restaurantId) {
         Restaurant restaurant = findRestaurantByIdUseCase.execute(restaurantId);
         return new ResponseEntity<>(RestaurantDto.toDto(restaurant), HttpStatus.OK);
     }

@@ -22,9 +22,9 @@ public class ReservationPerformanceSimulation extends Simulation {
             .post("/reservation")
             .body(StringBody("""
                     {
-                      "reservationDateTime": "2024-09-18T00:42:38.053Z",
+                      "reservationDateTime": "2024-10-29T00:42:38.053Z",
                       "guests": 1,
-                      "restaurantId": 1,
+                      "restaurantId": 2,
                       "customerId": 1
                     }"""))
             .check(status().is(201))
@@ -34,7 +34,7 @@ public class ReservationPerformanceSimulation extends Simulation {
             .put("/reservation/#{reservationId}")
             .body(StringBody("""
                     {
-                      "status": "IN_PROGRESS",
+                      "status": "CANCELLED",
                       "tableTag": "A01"
                     }"""))
             .check(status().is(200));

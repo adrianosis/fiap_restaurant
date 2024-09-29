@@ -64,6 +64,34 @@ public class RestaurantControllerIT {
     }
 
     @Test
+    void shouldUpdateRestaurant() {
+        var restaurantRequest = createRestaurantRequest();
+
+        given()
+                .filter(new AllureRestAssured())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body( asJsonString(restaurantRequest))
+                .when()
+                .put("/restaurant/{id}", 1L)
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("./schemas/RestaurantResponseSchema.json"))
+                .body("name", equalTo(restaurantRequest.getName()))
+                .body("kitchenType", equalTo(restaurantRequest.getKitchenType()))
+                .body("capacity", equalTo(restaurantRequest.getCapacity()))
+                .body("openingTime", equalTo(restaurantRequest.getOpeningTime().format(DateTimeFormatter.ISO_TIME)))
+                .body("closingTime", equalTo(restaurantRequest.getClosingTime().format(DateTimeFormatter.ISO_TIME)))
+                .body("street", equalTo(restaurantRequest.getStreet()))
+                .body("number", equalTo(restaurantRequest.getNumber()))
+                .body("complement", equalTo(restaurantRequest.getComplement()))
+                .body("district", equalTo(restaurantRequest.getDistrict()))
+                .body("city", equalTo(restaurantRequest.getCity()))
+                .body("state", equalTo(restaurantRequest.getState()))
+                .body("postalCode", equalTo(restaurantRequest.getPostalCode()));
+
+    }
+
+    @Test
     void shouldFindRestaurantById() {
         var id = 1L;
 

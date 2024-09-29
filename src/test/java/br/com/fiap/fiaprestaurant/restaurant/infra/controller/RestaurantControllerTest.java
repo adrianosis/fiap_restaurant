@@ -3,6 +3,7 @@ package br.com.fiap.fiaprestaurant.restaurant.infra.controller;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.CreateRestaurantUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindAllRestaurantsByNameOrLocationOrKitchenTypeUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.application.usecases.FindRestaurantByIdUseCase;
+import br.com.fiap.fiaprestaurant.restaurant.application.usecases.UpdateRestaurantUseCase;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
 import br.com.fiap.fiaprestaurant.shared.exception.GlobalExceptionHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.autoconfigure.web.format.DateTimeFormatters;
-import org.springframework.boot.autoconfigure.web.format.WebConversionService;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,13 +23,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import static br.com.fiap.fiaprestaurant.restaurant.utils.JsonHelper.asJsonString;
-import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurant;
-import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantRequest;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,6 +38,8 @@ public class RestaurantControllerTest {
 
     @Mock
     private CreateRestaurantUseCase createRestaurantUseCase;
+    @Mock
+    private UpdateRestaurantUseCase updateRestaurantUseCase;
     @Mock
     private FindRestaurantByIdUseCase findRestaurantByIdUseCase;
     @Mock
@@ -51,7 +51,7 @@ public class RestaurantControllerTest {
     @BeforeEach
     void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
-        RestaurantController restaurantController = new RestaurantController(createRestaurantUseCase,
+        RestaurantController restaurantController = new RestaurantController(createRestaurantUseCase, updateRestaurantUseCase,
                 findRestaurantByIdUseCase, findAllRestaurantsByNameOrLocationOrKitchenTypeUseCase);
 
         objectMapper.registerModule(new JavaTimeModule());
@@ -86,6 +86,36 @@ public class RestaurantControllerTest {
                         .content(asJsonString(restaurantRequest)))
                 .andExpect(status().isCreated());
         verify(createRestaurantUseCase, times(1)).execute(any(Restaurant.class));
+    }
+
+    @Test
+    void shouldUpdateRestaurant() throws Exception {
+        var id = 1L;
+        var restaurant = createRestaurantUpdate();
+        restaurant.setId(id);
+
+        var restaurantRequest = createRestaurantRequest();
+        when(updateRestaurantUseCase.execute(any(Long.class), any(Restaurant.class)))
+                .thenReturn(restaurant);
+
+        mockMvc.perform(put("/restaurant/{id}", restaurant.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(restaurantRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(restaurant.getId()))
+                .andExpect(jsonPath("$.name").value(restaurant.getName()))
+                .andExpect(jsonPath("$.kitchenType").value(restaurant.getKitchenType()))
+                .andExpect(jsonPath("$.capacity").value(restaurant.getCapacity()))
+                .andExpect(jsonPath("$.openingTime").value(restaurant.getOpeningTime().format(DateTimeFormatter.ISO_TIME)))
+                .andExpect(jsonPath("$.closingTime").value(restaurant.getClosingTime().format(DateTimeFormatter.ISO_TIME)))
+                .andExpect(jsonPath("$.street").value(restaurant.getAddress().getStreet()))
+                .andExpect(jsonPath("$.number").value(restaurant.getAddress().getNumber()))
+                .andExpect(jsonPath("$.complement").value(restaurant.getAddress().getComplement()))
+                .andExpect(jsonPath("$.district").value(restaurant.getAddress().getDistrict()))
+                .andExpect(jsonPath("$.city").value(restaurant.getAddress().getCity()))
+                .andExpect(jsonPath("$.state").value(restaurant.getAddress().getState()))
+                .andExpect(jsonPath("$.postalCode").value(restaurant.getAddress().getPostalCode()));
+        verify(updateRestaurantUseCase, times(1)).execute(any(Long.class), any(Restaurant.class));
     }
 
     @Test

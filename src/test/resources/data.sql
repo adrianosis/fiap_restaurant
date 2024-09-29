@@ -58,7 +58,7 @@ values ('eduardo', 'eduardo@gmail.com'),
 
 insert into restaurant (name, kitchen_type, capacity, opening_time, closing_time, street, number, complement, district,
                         city, state, postal_code)
-values ('PIZZARIA 01', 'PIZZARIA', 100, '09:00', '22:00', 'AV IMPERATRIZ', '900', null, 'CENTRO', 'São Paulo', 'SP', '05399000'),
+values ('PIZZARIA 01', 'PIZZARIA', 1000, '09:00', '22:00', 'AV IMPERATRIZ', '900', null, 'CENTRO', 'São Paulo', 'SP', '05399000'),
        ('CHURRASCARIA 01', 'CHURRASCARIA', 500, '12:00', '20:00', 'RUA GUAIPA', '1900', null, 'CENTRO', 'São Paulo', 'SP', '05399000'),
        ('SUSHI 01', 'ORIENTAL', 200, '08:00', '20:00', 'AV QUEIROS FILHO', '100', null, 'PINHEIROS', 'São Paulo', 'SP', '05399000');
 

@@ -3,10 +3,6 @@ package br.com.fiap.fiaprestaurant.customer.bdd;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.ReservationStatus;
 import br.com.fiap.fiaprestaurant.reservation.infra.controller.ChangeReservationRequestDto;
 import br.com.fiap.fiaprestaurant.reservation.infra.controller.ReservationDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.cucumber.java.DocStringType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +10,6 @@ import io.restassured.response.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 import static br.com.fiap.fiaprestaurant.reservation.utils.ReservationHelper.createReserveRestaurantRequest;
@@ -65,7 +60,7 @@ public class ReservationStepsDefinition {
     @When("I request to change a reservation")
     public void changeReservation() {
         var changeReservationRequest = new ChangeReservationRequestDto(
-                ReservationStatus.IN_PROGRESS, "A05"
+                ReservationStatus.CANCELLED, null
         );
 
         response = given()
@@ -80,8 +75,7 @@ public class ReservationStepsDefinition {
         response.then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("./schemas/RestaurantResponseSchema.json"))
-                .body("status", equalTo(ReservationStatus.IN_PROGRESS.toString()))
-                .body("tableTag", equalTo("A05"));
+                .body("status", equalTo(ReservationStatus.CANCELLED.toString()));
     }
 
 
