@@ -1,6 +1,7 @@
 package br.com.fiap.fiaprestaurant.review.infra.controller;
 
 import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
