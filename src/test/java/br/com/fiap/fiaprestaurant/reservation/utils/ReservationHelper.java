@@ -8,6 +8,7 @@ import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.ReservationStatus;
 import br.com.fiap.fiaprestaurant.reservation.infra.controller.ReserveRestaurantRequestDto;
 import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntity;
+import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationRepository;
 import br.com.fiap.fiaprestaurant.restaurant.application.gateways.RestaurantGateway;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Address;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
@@ -77,6 +78,20 @@ public class ReservationHelper {
                 .restaurantId(1L)
                 .customerId(1L)
                 .build();
+    }
+
+    public static ReservationEntity saveReservationEntity(ReservationRepository reservationRepository) {
+
+        var reservation = ReservationEntity.builder()
+                .reservationDateTime(LocalDateTime.now())
+                .guests(2)
+                .startService(LocalDateTime.now().plusHours(1))
+                .endService(LocalDateTime.now().plusHours(2))
+                .tableTag("A1")
+                .status(ReservationStatus.COMPLETED)
+                .build();
+
+        return reservationRepository.save(reservation);
     }
 
 }

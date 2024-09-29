@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "score": {
+      "type": "integer"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "reservationId": {
+      "type": "integer"
+    }
+  },
+  "required": ["score", "comment", "reservationId"]
+}

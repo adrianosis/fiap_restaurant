@@ -24,7 +24,6 @@ public class CreateReviewUseCaseIT {
 
     @Test
     void shouldCreateReview() {
-
         var review = ReviewHelper.createReviewInput();
 
         var savedReview = createReviewUseCase.execute(review);
@@ -36,7 +35,10 @@ public class CreateReviewUseCaseIT {
                 .isGreaterThan(0);
         assertThat(savedReview.getScore()).isNotNull().isEqualTo(review.getScore());
         assertThat(savedReview.getComment()).isNotNull().isEqualTo(review.getComment());
-        assertThat(savedReview.getReservation()).isNotNull().isEqualTo(review.getReservationId());
+
+        // Corrigido: Acessando o ID da reserva do objeto Reservation
+        assertThat(savedReview.getReservation()).isNotNull();
+        assertThat(savedReview.getReservation().getId()).isEqualTo(review.getReservationId());
     }
 
 }

@@ -18,7 +18,7 @@ public class ReviewRequestDto {
     @Size(max = 500, message = "The comment must have at most 500 characters.")
     private String comment;
     @NotNull(message = "The reservation ID cannot be null.")
-    private long reservationId;
+    private int reservationId;
 
     public ReviewInput toInput() {
         return new ReviewInput(this.score, this.comment, this.reservationId);

@@ -66,3 +66,5 @@ insert into reservation (reservation_datetime, guests, start_service, end_servic
 values ('2024-09-15 17:00:00', 10, '2024-09-15 17:05:00', '2024-09-15 18:30:00', 'A15', 'COMPLETED', 1, 1),
        ('2024-09-15 18:00:00', 4, '2024-09-15 18:05:00', null, 'A25', 'IN_PROGRESS', 1, 1),
        ('2024-09-15 19:00:00', 6, null, null, 'A25', 'RESERVED', 1, 1);
+
+insert into review(score, comment, reservation_id) VALUES (5, 'Comida excelente', 3);
