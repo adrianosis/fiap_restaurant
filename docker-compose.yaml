@@ -19,12 +19,6 @@ services:
     depends_on:
       - postgres
     environment:
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
-      - DATABASE_NAME=fiap_restaurant
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=123456
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/fiap_restaurant
-#      SPRING_DATASOURCE_USERNAME: postgres
-#      SPRING_DATASOURCE_PASSWORD: 123456
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/fiap_restaurant
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
