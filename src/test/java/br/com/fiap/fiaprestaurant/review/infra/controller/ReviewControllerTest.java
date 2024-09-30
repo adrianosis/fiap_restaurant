@@ -197,7 +197,6 @@ public class ReviewControllerTest {
         when(findAllReviewsByRestaurantIdUseCase.execute(1L)).thenReturn(reviews);
 
         mockMvc.perform(get("/review/restaurant/{restaurantId}", 1L))
-                .andDo(print())  // Imprime a resposta no console
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].reservationId").value(1L)); // Verifica se a reserva está presente

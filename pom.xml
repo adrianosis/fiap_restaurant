@@ -261,6 +261,7 @@
                                 <include>br.com.fiap.fiaprestaurant.customer.performance.CustomerPerformanceSimulation</include>
                                 <include>br.com.fiap.fiaprestaurant.restaurant.performance.RestaurantPerformanceSimulation</include>
                                 <include>br.com.fiap.fiaprestaurant.reservation.performance.ReservationPerformanceSimulation</include>
+                                <include>br.com.fiap.fiaprestaurant.review.performance.ReviewPerformanceSimulation</include>
                             </includes>
                         </configuration>
                     </plugin>

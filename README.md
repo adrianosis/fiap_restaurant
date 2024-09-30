@@ -15,6 +15,7 @@ This application is built using **Spring Boot** and **Java**, and it provides RE
         - `POST /restaurant` - Create a new restaurant.
         - `GET /restaurant` - Search for restaurants by name, location, or type of cuisine.
         - `GET /restaurant/{restaurantId}` - Find a restaurant by ID.
+        - `PUT /restaurant/{restaurantId}` - Update restaurant by ID.
 
 2. **Customer Registration**  
    Customers can be managed in the system, including creation and retrieval of information.  
