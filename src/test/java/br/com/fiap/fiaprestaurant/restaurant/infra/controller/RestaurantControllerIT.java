@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.time.format.DateTimeFormatter;
 
+import static br.com.fiap.fiaprestaurant.restaurant.utils.JsonHelper.asJsonString;
 import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantRequest;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -42,7 +43,7 @@ public class RestaurantControllerIT {
         given()
                 .filter(new AllureRestAssured())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(restaurantRequest)
+                .body( asJsonString(restaurantRequest))
                 .when()
                 .post("/restaurant")
                 .then()
@@ -60,6 +61,34 @@ public class RestaurantControllerIT {
                 .body("city", equalTo(restaurantRequest.getCity()))
                 .body("state", equalTo(restaurantRequest.getState()))
                 .body("postalCode", equalTo(restaurantRequest.getPostalCode()));
+    }
+
+    @Test
+    void shouldUpdateRestaurant() {
+        var restaurantRequest = createRestaurantRequest();
+
+        given()
+                .filter(new AllureRestAssured())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body( asJsonString(restaurantRequest))
+                .when()
+                .put("/restaurant/{id}", 1L)
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("./schemas/RestaurantResponseSchema.json"))
+                .body("name", equalTo(restaurantRequest.getName()))
+                .body("kitchenType", equalTo(restaurantRequest.getKitchenType()))
+                .body("capacity", equalTo(restaurantRequest.getCapacity()))
+                .body("openingTime", equalTo(restaurantRequest.getOpeningTime().format(DateTimeFormatter.ISO_TIME)))
+                .body("closingTime", equalTo(restaurantRequest.getClosingTime().format(DateTimeFormatter.ISO_TIME)))
+                .body("street", equalTo(restaurantRequest.getStreet()))
+                .body("number", equalTo(restaurantRequest.getNumber()))
+                .body("complement", equalTo(restaurantRequest.getComplement()))
+                .body("district", equalTo(restaurantRequest.getDistrict()))
+                .body("city", equalTo(restaurantRequest.getCity()))
+                .body("state", equalTo(restaurantRequest.getState()))
+                .body("postalCode", equalTo(restaurantRequest.getPostalCode()));
+
     }
 
     @Test
@@ -94,16 +123,5 @@ public class RestaurantControllerIT {
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("./schemas/RestaurantArrayResponseSchema.json"));
     }
-
-
-
-
-//    public String asJsonString(final Object obj) {
-//        try {
-//            return objectMapper.writeValueAsString(obj);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
 }

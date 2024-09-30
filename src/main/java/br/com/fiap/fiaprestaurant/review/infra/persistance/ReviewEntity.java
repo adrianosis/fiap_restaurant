@@ -4,6 +4,7 @@ import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntit
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

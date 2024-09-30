@@ -10,7 +10,7 @@ public class CreateRestaurantUseCase {
     private final RestaurantGateway restaurantGateway;
 
     public Restaurant execute(Restaurant restaurant) {
-        return restaurantGateway.create(restaurant);
+        return restaurantGateway.save(restaurant);
     }
 
 }

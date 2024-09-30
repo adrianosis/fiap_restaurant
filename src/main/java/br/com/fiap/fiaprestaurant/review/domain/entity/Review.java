@@ -3,10 +3,10 @@ package br.com.fiap.fiaprestaurant.review.domain.entity;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import lombok.*;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Review {
 
     private long id;

@@ -48,7 +48,7 @@ public class ReviewController {
 
     @GetMapping("/{reviewId}")
     @Operation(summary = "Find review by ID", description = "Retrieves a specific review by its unique ID.")
-    ResponseEntity<ReviewResponseDto> findReviewById(@PathVariable Long reviewId) throws RestaurantException {
+    public ResponseEntity<ReviewResponseDto> findReviewById(@PathVariable Long reviewId) throws RestaurantException {
         Review review = findReviewByIdUseCase.execute(reviewId);
         return new ResponseEntity<>(ReviewResponseDto.toDto(review), HttpStatus.OK);
     }

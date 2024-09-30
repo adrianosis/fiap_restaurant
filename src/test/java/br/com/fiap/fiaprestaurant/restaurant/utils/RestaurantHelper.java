@@ -32,6 +32,26 @@ public class RestaurantHelper {
                 .build();
     }
 
+    public static Restaurant createRestaurantUpdate() {
+        Address address = Address.builder()
+                .street("Av São João")
+                .number("3400")
+                .district("Centro")
+                .city("São Paulo")
+                .state("SP")
+                .postalCode("05300100")
+                .build();
+
+        return Restaurant.builder()
+                .name("PIZZARIA SAO JOAO")
+                .kitchenType("PIZZARIA")
+                .capacity(100)
+                .openingTime(LocalTime.of(10, 0))
+                .closingTime(LocalTime.of(23, 0))
+                .address(address)
+                .build();
+    }
+
     public static RestaurantEntity createRestaurantEntity() {
         AddressEntity address = AddressEntity.builder()
                 .street("Av Rebouças")
@@ -55,7 +75,7 @@ public class RestaurantHelper {
     public static Restaurant saveRestaurant(RestaurantGateway restaurantGateway) {
         var restaurant = createRestaurant();
         restaurant.setId(4L);
-        return restaurantGateway.create(restaurant);
+        return restaurantGateway.save(restaurant);
     }
 
     public static RestaurantEntity saveRestaurantEntity(RestaurantRepository restaurantRepository) {

@@ -37,13 +37,13 @@ public class CreateRestaurantUseCaseTest {
         // Arrange
         var restaurant = createRestaurant();
         restaurant.setId(1L);
-        when(restaurantGateway.create(any(Restaurant.class))).thenAnswer(i -> i.getArgument(0));
+        when(restaurantGateway.save(any(Restaurant.class))).thenAnswer(i -> i.getArgument(0));
 
         // Act
         var savedRestaurant = createRestaurantUseCase.execute(restaurant);
 
         // Assert
-        verify(restaurantGateway, times(1)).create(restaurant);
+        verify(restaurantGateway, times(1)).save(restaurant);
         assertThat(savedRestaurant).isInstanceOf(Restaurant.class).isNotNull();
         assertThat(savedRestaurant.getId()).isEqualTo(restaurant.getId());
         assertThat(savedRestaurant.getName()).isEqualTo(restaurant.getName());

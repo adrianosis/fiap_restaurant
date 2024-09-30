@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "score": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5
+      },
+      "comment": {
+        "type": "string",
+        "maxLength": 500
+      },
+      "reservationId": {
+        "type": "integer"
+      }
+    },
+    "required": ["score", "comment", "reservationId"]
+  }
+}

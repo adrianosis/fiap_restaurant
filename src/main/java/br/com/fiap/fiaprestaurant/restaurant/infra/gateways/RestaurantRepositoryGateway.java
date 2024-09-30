@@ -15,7 +15,7 @@ public class RestaurantRepositoryGateway implements RestaurantGateway {
     private final RestaurantEntityMapper mapper;
 
     @Override
-    public Restaurant create(Restaurant restaurant) {
+    public Restaurant save(Restaurant restaurant) {
         RestaurantEntity entity = mapper.toEntity(restaurant);
         entity = repository.save(entity);
 

@@ -2,6 +2,9 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
+    "id": {
+      "type": "number"
+    },
     "score": {
       "type": "integer"
     },
@@ -9,8 +12,7 @@
       "type": "string"
     },
     "reservationId": {
-      "type": "integer"
+      "type": "number"
     }
-  },
-  "required": ["score", "comment", "reservationId"]
+  }
 }

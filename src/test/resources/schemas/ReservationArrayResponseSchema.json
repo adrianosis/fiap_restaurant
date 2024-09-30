@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "reservationDateTime": {
+        "type": "string"
+      },
+      "guests": {
+        "type": "number"
+      },
+      "startService": {
+        "type": ["string", "null"]
+      },
+      "endService": {
+        "type": ["string", "null"]
+      },
+      "tableTag": {
+        "type": ["string", "null"]
+      },
+      "status": {
+        "type": "string"
+      },
+      "restaurantId": {
+        "type": "number"
+      },
+      "customerId": {
+        "type": "number"
+      }
+    }
+  }
+}

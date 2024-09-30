@@ -1,9 +1,10 @@
 package br.com.fiap.fiaprestaurant.review.application.usecases;
 
 
-import br.com.fiap.fiaprestaurant.customer.domain.entity.Customer;
-import br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper;
+
+import br.com.fiap.fiaprestaurant.reservation.application.gateways.ReservationGateway;
 import br.com.fiap.fiaprestaurant.review.application.gateways.ReviewGateway;
+import br.com.fiap.fiaprestaurant.review.domain.entity.Review;
 import br.com.fiap.fiaprestaurant.review.utils.ReviewHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -26,16 +26,23 @@ public class FindReviewByIdUseCaseIT {
     @Autowired
     private FindReviewByIdUseCase findReviewByIdUseCase;
 
+    @Autowired
+    private ReservationGateway reservationGateway;
+
+
     @Test
     void shouldFindReviewById() {
         // Arrange
-        var review = ReviewHelper.saveRestaurant(reviewGateway);
+        Review review = ReviewHelper.createReviewToFind(reservationGateway, reviewGateway);
+        long reviewId = review.getId();
+
         // Act
-        var foundReview = findReviewByIdUseCase.execute(review.getId());
+        var foundReview = findReviewByIdUseCase.execute(reviewId);
+
         // Assert
         assertThat(foundReview)
                 .isNotNull()
-                .isInstanceOf(Customer.class);
+                .isInstanceOf(Review.class);
         assertThat(foundReview.getId())
                 .isEqualTo(review.getId());
         assertThat(foundReview.getScore())

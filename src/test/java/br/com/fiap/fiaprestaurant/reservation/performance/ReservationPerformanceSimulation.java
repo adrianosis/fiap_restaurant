@@ -1,4 +1,4 @@
-package br.com.fiap.fiaprestaurant.customer.performance;
+package br.com.fiap.fiaprestaurant.reservation.performance;
 
 import io.gatling.javaapi.core.ActionBuilder;
 import io.gatling.javaapi.core.ScenarioBuilder;
@@ -11,50 +11,58 @@ import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
-public class ApiPerformanceSimulation extends Simulation {
+public class ReservationPerformanceSimulation extends Simulation {
 
     private final HttpProtocolBuilder httpProtocol =
             http.baseUrl("http://localhost:8080")
                     .header("Content-type", "application/json");
 
 
-    ActionBuilder createCustomerRequest = http("add customer")
-            .post("/customer")
-            .body(StringBody("{ \"name\": \"Paulo\", \"email\": \"paulo@gmail.com\" }"))
+    ActionBuilder reserveRestaurantRequest = http("reserve restaurant")
+            .post("/reservation")
+            .body(StringBody("""
+                    {
+                      "reservationDateTime": "2024-10-29T00:42:38.053Z",
+                      "guests": 1,
+                      "restaurantId": 2,
+                      "customerId": 1
+                    }"""))
             .check(status().is(201))
-            .check(jsonPath("$.id").saveAs("customerId"));
+            .check(jsonPath("$.id").saveAs("reservationId"));
 
-
-    ActionBuilder findCustomerRequest = http("find customer")
-            .get("/customer/#{customerId}")
+    ActionBuilder changeReservationRequest = http("change reservation")
+            .put("/reservation/#{reservationId}")
+            .body(StringBody("""
+                    {
+                      "status": "CANCELLED",
+                      "tableTag": "A01"
+                    }"""))
             .check(status().is(200));
 
-    ActionBuilder listarMensagemRequest = http("list customers")
-            .get("/customer")
+    ActionBuilder listOpenedReservationsRequest = http("list opened reservations")
+            .get("/reservation/restaurant/1/opened?startDateTime=2024-09-01T00:00&endDateTime=2024-12-31T23:59")
             .check(status().is(200));
 
-    ActionBuilder removerCustomerRequest = http("remover mensagem")
-            .delete("/customer/#{customerId}")
-            .check(status().is(204));
+    ActionBuilder listCompletedReservationsRequest = http("list completed reservations")
+            .get("/reservation/customer/1/completed")
+            .check(status().is(200));
 
+    ScenarioBuilder scenarioReserveRestaurant = scenario("Reserve restaurant")
+            .exec(reserveRestaurantRequest);
 
-    ScenarioBuilder scenarioCreateCustomer = scenario("Create customer")
-            .exec(createCustomerRequest);
+    ScenarioBuilder scenarioReserveAndChangeReservation = scenario("Reserve and Change reservation")
+            .exec(reserveRestaurantRequest)
+            .exec(changeReservationRequest);
 
-    ScenarioBuilder scenarioListCustomers = scenario("List Customer")
-            .exec(listarMensagemRequest);
+    ScenarioBuilder scenarioListOpenedReservations = scenario("List opened reservations")
+            .exec(listOpenedReservationsRequest);
 
-    ScenarioBuilder scenarioAddSearchCustomer = scenario("Add and Search Customer")
-            .exec(createCustomerRequest)
-            .exec(findCustomerRequest);
-
-    ScenarioBuilder scenarioAddRemoveCustomer = scenario("Add and Remove Customer")
-            .exec(createCustomerRequest)
-            .exec(removerCustomerRequest);
+    ScenarioBuilder scenarioListCompletedReservations = scenario("List completed reservations")
+            .exec(listCompletedReservationsRequest);
 
     {
         setUp(
-                scenarioCreateCustomer.injectOpen(
+                scenarioReserveRestaurant.injectOpen(
                         rampUsersPerSec(1)
                                 .to(10)
                                 .during(Duration.ofSeconds(1)),
@@ -63,7 +71,7 @@ public class ApiPerformanceSimulation extends Simulation {
                         rampUsersPerSec(10)
                                 .to(1)
                                 .during(Duration.ofSeconds(1))),
-                scenarioAddRemoveCustomer.injectOpen(
+                scenarioReserveAndChangeReservation.injectOpen(
                         rampUsersPerSec(1)
                                 .to(30)
                                 .during(Duration.ofSeconds(1)),
@@ -72,7 +80,7 @@ public class ApiPerformanceSimulation extends Simulation {
                         rampUsersPerSec(30)
                                 .to(1)
                                 .during(Duration.ofSeconds(1))),
-                scenarioAddSearchCustomer.injectOpen(
+                scenarioListOpenedReservations.injectOpen(
                         rampUsersPerSec(1)
                                 .to(30)
                                 .during(Duration.ofSeconds(1)),
@@ -81,15 +89,16 @@ public class ApiPerformanceSimulation extends Simulation {
                         rampUsersPerSec(30)
                                 .to(1)
                                 .during(Duration.ofSeconds(1))),
-                scenarioListCustomers.injectOpen(
+                scenarioListCompletedReservations.injectOpen(
                         rampUsersPerSec(1)
-                                .to(100)
+                                .to(30)
                                 .during(Duration.ofSeconds(1)),
-                        constantUsersPerSec(100)
+                        constantUsersPerSec(30)
                                 .during(Duration.ofSeconds(6)),
-                        rampUsersPerSec(100)
+                        rampUsersPerSec(30)
                                 .to(1)
-                                .during(Duration.ofSeconds(1))))
+                                .during(Duration.ofSeconds(1)))
+        )
                 .protocols(httpProtocol)
                 .assertions(
                         global().responseTime().max().lt(500),
