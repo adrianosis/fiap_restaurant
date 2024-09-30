@@ -88,7 +88,7 @@ public class RestaurantHelper {
         return SaveRestaurantRequestDto.builder()
                 .name("PIZZARIA 10")
                 .kitchenType("PIZZARIA")
-                .capacity(100)
+                .capacity(2000)
                 .openingTime(LocalTime.of(9, 0))
                 .closingTime(LocalTime.of(22, 0))
 
