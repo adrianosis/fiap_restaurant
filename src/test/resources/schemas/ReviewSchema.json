@@ -6,7 +6,7 @@
       "type": "number"
     },
     "score": {
-      "type": "string"
+      "type": "number"
     },
     "comment": {
       "type": "string"

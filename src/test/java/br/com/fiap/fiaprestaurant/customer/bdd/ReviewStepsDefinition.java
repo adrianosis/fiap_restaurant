@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class ReviewStepsDefinition {
+public class ReviewStepsDefinition extends AbstractStepsDefinition {
 
     private static final String BASE_ENDPOINT = "http://localhost:8080/review";
     private Response response;
@@ -29,8 +29,13 @@ public class ReviewStepsDefinition {
     @When("I request the creation of a new review")
     public ReviewResponseDto createNewReview() {
         var reviewRequest = ReviewHelper.createReviewDTORequest();
+
+        if(getSharedDataValue("reservationId") != null)
+            reviewRequest.setReservationId(Integer.valueOf(getSharedDataValue("reservationId")));
+
         setUpRequest(reviewRequest);
-        return response.then().extract().as(ReviewResponseDto.class);
+        reviewResponse = response.then().extract().as(ReviewResponseDto.class);
+        return reviewResponse;
     }
 
     @Then("the review is saved successfully")
@@ -42,15 +47,15 @@ public class ReviewStepsDefinition {
 
     @Given("a review has already been created")
     public void givenReviewAlreadyCreated() {
-        createNewReview();
+        reviewResponse = createNewReview();
     }
 
     @When("I request to retrieve the review")
-    public void requestToRetrieveReview(String reviewId) {
+    public void requestToRetrieveReview() {
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .get(BASE_ENDPOINT + "/{reviewId}", reviewId);
+                .get(BASE_ENDPOINT + "/{reviewId}", reviewResponse.getId());
     }
 
     @Then("the review is displayed successfully")
@@ -61,11 +66,11 @@ public class ReviewStepsDefinition {
     }
 
     @When("I request the deletion of the review")
-    public void deleteReview(String reviewId) {
+    public void deleteReview() {
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .delete(BASE_ENDPOINT + "/{id}", reviewId);
+                .delete(BASE_ENDPOINT + "/{id}", reviewResponse.getId());
     }
 
     @Then("the review is removed successfully")
@@ -74,8 +79,8 @@ public class ReviewStepsDefinition {
                 .statusCode(HttpStatus.NO_CONTENT.value());
     }
 
-    @When("I request the list of opened reviews by restaurant")
-    public void requestOpenedReviewsByRestaurant(String restaurantId) {
+    @When("I request the list of opened reviews by restaurant id {int}")
+    public void requestOpenedReviewsByRestaurant(Integer restaurantId) {
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
@@ -86,11 +91,11 @@ public class ReviewStepsDefinition {
     public void verifyOpenedReviewsDisplayed() {
         response.then()
                 .statusCode(HttpStatus.OK.value())
-                .body(matchesJsonSchemaInClasspath("./schemas/ReviewListResponseSchema.json"));
+                .body(matchesJsonSchemaInClasspath("./schemas/ReviewArrayResponseSchema.json"));
     }
 
-    @When("I request the list of completed reviews by customer")
-    public void requestCompletedReviewsByCustomer(String customerId) {
+    @When("I request the list of completed reviews by customer id {int}")
+    public void requestCompletedReviewsByCustomer(Integer customerId) {
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
@@ -101,6 +106,6 @@ public class ReviewStepsDefinition {
     public void verifyCompletedReviewsDisplayed() {
         response.then()
                 .statusCode(HttpStatus.OK.value())
-                .body(matchesJsonSchemaInClasspath("./schemas/ReviewListResponseSchema.json"));
+                .body(matchesJsonSchemaInClasspath("./schemas/ReviewArrayResponseSchema.json"));
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 
 import java.time.LocalDateTime;
 
+import static br.com.fiap.fiaprestaurant.customer.bdd.AbstractStepsDefinition.setSharedData;
 import static br.com.fiap.fiaprestaurant.reservation.utils.ReservationHelper.createReserveRestaurantRequest;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -55,6 +56,7 @@ public class ReservationStepsDefinition {
     @Given("a reservation has already been created")
     public void reservationAlreadyExists() {
         restaurantResponse = reserveRestaurant();
+        setSharedData("reservationId",String.valueOf(restaurantResponse.getId()));
     }
 
     @When("I request to change a reservation to in progress")
