@@ -57,10 +57,10 @@ public class ReservationStepsDefinition {
         restaurantResponse = reserveRestaurant();
     }
 
-    @When("I request to change a reservation")
-    public void changeReservation() {
+    @When("I request to change a reservation to in progress")
+    public void changeReservationToInProgress() {
         var changeReservationRequest = new ChangeReservationRequestDto(
-                ReservationStatus.CANCELLED, null
+                ReservationStatus.IN_PROGRESS, "A05"
         );
 
         response = given()
@@ -70,14 +70,37 @@ public class ReservationStepsDefinition {
                 .put(BASE_ENDPOINT + "/{id}", restaurantResponse.getId());
     }
 
-    @Then("the reservation is changed successfully")
-    public void verifyReservationChangedSuccess() {
+
+    @Then("the reservation is changed to in progress successfully")
+    public void verifyReservationChangedToInProgressSuccess() {
         response.then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("./schemas/RestaurantResponseSchema.json"))
-                .body("status", equalTo(ReservationStatus.CANCELLED.toString()));
+                .body("status", equalTo(ReservationStatus.IN_PROGRESS.toString()))
+                .body("tableTag", equalTo("A05"));
     }
 
+
+    @When("I request to change a reservation to completed")
+    public void changeReservationToCompleted() {
+        var changeReservationRequest = new ChangeReservationRequestDto(
+                ReservationStatus.COMPLETED, null
+        );
+
+        response = given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(changeReservationRequest)
+                .when()
+                .put(BASE_ENDPOINT + "/{id}", restaurantResponse.getId());
+    }
+
+    @Then("the reservation is changed to completed successfully")
+    public void verifyReservationChangedToCompletedSuccess() {
+        response.then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("./schemas/RestaurantResponseSchema.json"))
+                .body("status", equalTo(ReservationStatus.COMPLETED.toString()));
+    }
 
     @When("I request the list of opened reservations by restaurant")
     public void retrieveOpenedReservations() {

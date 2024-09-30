@@ -8,21 +8,15 @@ import br.com.fiap.fiaprestaurant.reservation.domain.entity.Reservation;
 import br.com.fiap.fiaprestaurant.reservation.domain.entity.ReservationStatus;
 import br.com.fiap.fiaprestaurant.reservation.infra.controller.ReserveRestaurantRequestDto;
 import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationEntity;
-import br.com.fiap.fiaprestaurant.reservation.infra.persistence.ReservationRepository;
-import br.com.fiap.fiaprestaurant.restaurant.application.gateways.RestaurantGateway;
-import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Address;
 import br.com.fiap.fiaprestaurant.restaurant.domain.entity.Restaurant;
-import br.com.fiap.fiaprestaurant.restaurant.infra.controller.SaveRestaurantRequestDto;
-import br.com.fiap.fiaprestaurant.restaurant.infra.persistence.AddressEntity;
 import br.com.fiap.fiaprestaurant.restaurant.infra.persistence.RestaurantEntity;
-import br.com.fiap.fiaprestaurant.restaurant.infra.persistence.RestaurantRepository;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import static br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper.createCustomer;
 import static br.com.fiap.fiaprestaurant.customer.utils.CustomerHelper.createCustomerEntity;
-import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.*;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurant;
+import static br.com.fiap.fiaprestaurant.restaurant.utils.RestaurantHelper.createRestaurantEntity;
 
 public class ReservationHelper {
 
@@ -74,24 +68,10 @@ public class ReservationHelper {
     public static ReserveRestaurantRequestDto createReserveRestaurantRequest() {
         return ReserveRestaurantRequestDto.builder()
                 .reservationDateTime(LocalDateTime.of(2024, 9, 15, 18, 0))
-                .guests(11)
+                .guests(1)
                 .restaurantId(1L)
                 .customerId(1L)
                 .build();
-    }
-
-    public static ReservationEntity saveReservationEntity(ReservationRepository reservationRepository) {
-
-        var reservation = ReservationEntity.builder()
-                .reservationDateTime(LocalDateTime.now())
-                .guests(2)
-                .startService(LocalDateTime.now().plusHours(1))
-                .endService(LocalDateTime.now().plusHours(2))
-                .tableTag("A1")
-                .status(ReservationStatus.COMPLETED)
-                .build();
-
-        return reservationRepository.save(reservation);
     }
 
 }

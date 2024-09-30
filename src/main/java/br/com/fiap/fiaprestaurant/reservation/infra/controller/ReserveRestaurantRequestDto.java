@@ -1,14 +1,11 @@
 package br.com.fiap.fiaprestaurant.reservation.infra.controller;
 
 import br.com.fiap.fiaprestaurant.reservation.application.inputs.ReserveRestaurantInput;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
